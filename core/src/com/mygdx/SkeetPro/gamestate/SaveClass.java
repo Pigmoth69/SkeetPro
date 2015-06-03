@@ -8,8 +8,8 @@ import com.mygdx.SkeetPro.elements.Player;
 import com.mygdx.SkeetPro.gamestate.GameState;
 
 public class SaveClass implements Serializable{
-	private String nome;
-	private int score;
+	private ArrayList<Player> highScores;
+	
 	
 	SaveClass(Player p1){
 		nome = p1.getName();
