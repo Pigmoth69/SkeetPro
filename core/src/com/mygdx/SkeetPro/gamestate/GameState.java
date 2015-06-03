@@ -14,6 +14,8 @@ public class GameState {
 	private int failPlates; 
 	private int bestscore;
 	private int bullets;
+	private float reload_time;
+	private boolean is_reloading;
 	     
 	public GameState(Player player1){
 		this.player1= player1;
@@ -22,6 +24,8 @@ public class GameState {
 		scope = new Scope();
 		failPlates=0;
 		bullets = 4;
+        reload_time = 0;
+        is_reloading = false;
 		createPlate(0);
 	}
 
@@ -30,7 +34,7 @@ public class GameState {
 
 		if(time > 0.01f){
 			time = 0;
-			return;
+			return; 
 		}*/
 
 		Random rand = new Random();
@@ -159,6 +163,25 @@ public class GameState {
 	public void setBullets(int bullets){
 		this.bullets= bullets;
 	}
-
+	
+	public float reloadTime(){
+		if (is_reloading)
+			return reload_time;
+		else
+			return 0;
+	}
+	
+	public float incReload(float ammount){
+		reload_time+= ammount;
+		return reload_time;
+	}
+	
+	public void setReload(boolean bol){
+		is_reloading = bol;
+	}
+	
+	public void resetReload(){
+		reload_time = 0;
+	}
 
 }

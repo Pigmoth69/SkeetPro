@@ -40,8 +40,6 @@ public class GUIGame extends GUIScreen {
 	private BitmapFont scoreFont;
 	private ArrayList<Texture> shells;
 	private float time;
-	private float reload_time;
-	private boolean is_reloading;
 	
 	public GUIGame(SkeetPro parent) {
 		super(parent);
@@ -70,8 +68,6 @@ public class GUIGame extends GUIScreen {
         p1 = new Player("Daniel", 0);
         gamestate = new GameState(p1);
         time = 0;
-        reload_time = 0;
-        is_reloading = false;
 	}
 
 	@Override
@@ -94,11 +90,11 @@ public class GUIGame extends GUIScreen {
 		scoreFont.draw(batch, "BestScore: "+ gamestate.getBestscore(), 0, Gdx.graphics.getHeight()-scoreFont.getCapHeight()-10);
 		drawPlates();
 		
-		if(is_reloading)
-			reload_time += delta;
-		if(reload_time > 1){
-			is_reloading=false;
-			reload_time=0;
+		if(gamestate.reloadTime() != 0)
+			gamestate.incReload(delta);
+		if(gamestate.reloadTime() > 1){
+			gamestate.setReload(false);
+			gamestate.resetReload();
 			gamestate.setBullets(4);
 		}
 		if(gamestate.getBullets()==0)
