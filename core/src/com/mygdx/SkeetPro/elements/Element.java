@@ -1,5 +1,5 @@
 package com.mygdx.SkeetPro.elements;
-
+//sou merda!
 public class Element {
 	private double x;
 	private double y;
