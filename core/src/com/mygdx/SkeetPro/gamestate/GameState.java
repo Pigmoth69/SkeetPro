@@ -168,7 +168,7 @@ public class GameState {
 		if (is_reloading)
 			return reload_time;
 		else
-			return 0;
+			return -1;
 	}
 	
 	public float incReload(float ammount){

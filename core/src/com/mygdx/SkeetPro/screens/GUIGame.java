@@ -90,15 +90,18 @@ public class GUIGame extends GUIScreen {
 		scoreFont.draw(batch, "BestScore: "+ gamestate.getBestscore(), 0, Gdx.graphics.getHeight()-scoreFont.getCapHeight()-10);
 		drawPlates();
 		
-		if(gamestate.reloadTime() != 0)
+		if(gamestate.reloadTime() != -1){
 			gamestate.incReload(delta);
+		}
 		if(gamestate.reloadTime() > 1){
 			gamestate.setReload(false);
 			gamestate.resetReload();
 			gamestate.setBullets(4);
 		}
 		if(gamestate.getBullets()==0)
-			is_reloading = true;
+			gamestate.setReload(true);
+		
+		//System.out.println("reload" + gamestate.reloadTime());
 		
 		drawShells();
 		batch.end();
@@ -165,7 +168,7 @@ public class GUIGame extends GUIScreen {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		//game.switchTo(SkeetPro.State.MAIN_MENU);
-		if(is_reloading){
+		if(gamestate.reloadTime() != -1){
 			return true;
 		}
 		
@@ -173,7 +176,7 @@ public class GUIGame extends GUIScreen {
 		
 		if(gamestate.getBullets()==0){
 			gamestate.resetScope();
-			is_reloading=true;
+			gamestate.setReload(true);
 			
 		}
 		else{
