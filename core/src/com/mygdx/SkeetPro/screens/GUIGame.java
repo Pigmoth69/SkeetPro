@@ -90,16 +90,7 @@ public class GUIGame extends GUIScreen {
 		scoreFont.draw(batch, "BestScore: "+ gamestate.getBestscore(), 0, Gdx.graphics.getHeight()-scoreFont.getCapHeight()-10);
 		drawPlates();
 		
-		if(gamestate.reloadTime() != -1){
-			gamestate.incReload(delta);
-		}
-		if(gamestate.reloadTime() > 1){
-			gamestate.setReload(false);
-			gamestate.resetReload();
-			gamestate.setBullets(4);
-		}
-		if(gamestate.getBullets()==0)
-			gamestate.setReload(true);
+		gamestate.manageReload(delta);
 		
 		//System.out.println("reload" + gamestate.reloadTime());
 		
@@ -113,7 +104,7 @@ public class GUIGame extends GUIScreen {
 			time = 0;
 		}
 		else
-			time +=delta;
+			time += delta;
 		
 		if(gamestate.getPlates().size()==0)
 			gamestate.createPlate(delta);
@@ -141,7 +132,7 @@ public class GUIGame extends GUIScreen {
 		gamestate.resetScope();
 		//System.out.println("Reload: "+reload_time);
 		//System.out.println("Delta: "+delta);
-		System.out.println("Balas: "+gamestate.getBullets());
+		//System.out.println("Balas: "+gamestate.getBullets());
 		
 	}
 
@@ -168,22 +159,12 @@ public class GUIGame extends GUIScreen {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		//game.switchTo(SkeetPro.State.MAIN_MENU);
-		if(gamestate.reloadTime() != -1){
-			return true;
-		}
-		
-		
-		
-		if(gamestate.getBullets()==0){
-			gamestate.resetScope();
-			gamestate.setReload(true);
-			
-		}
-		else{
+
+		if(gamestate.touchDownShot()){
 			shotgun.play();
 			gamestate.setScope(screenX,Math.abs(Gdx.graphics.getHeight()-screenY));
-			gamestate.setBullets(gamestate.getBullets()-1);
 		}
+
 
 		return true;
 	}

@@ -184,4 +184,35 @@ public class GameState {
 		reload_time = 0;
 	}
 
+	public void manageReload(float delta){
+		if(is_reloading){
+			reload_time += delta;
+		}
+		if(reload_time > 1){
+			is_reloading = false;
+			resetReload();
+			setBullets(4);
+		}
+		if(getBullets()==0)
+			is_reloading = true;
+	}
+
+	public boolean touchDownShot(){
+		if(is_reloading){
+			return false;
+		}
+		
+		
+		if(getBullets()==0){
+			resetScope();
+			setReload(true);	
+		}
+		else{
+			setBullets(getBullets()-1);
+			return true;
+		}
+		
+		return false;
+	}
+
 }

@@ -47,7 +47,7 @@ public class GUISplash extends GUIScreen implements Screen {
 			public void onEvent(int type, BaseTween<?> source) {
 				game.switchTo(SkeetPro.State.MAIN_MENU);
 			}
-		}).start(tweenManager); 
+		}).start(tweenManager);  
 		
 	}
 	
