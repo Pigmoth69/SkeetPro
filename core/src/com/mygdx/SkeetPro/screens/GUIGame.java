@@ -2,6 +2,7 @@ package com.mygdx.SkeetPro.screens;
 
 import java.util.ArrayList;
 import java.util.Timer;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.SkeetPro.elements.Plate;
 import com.mygdx.SkeetPro.elements.Player;
+import com.mygdx.SkeetPro.gamestate.FileSaving;
 import com.mygdx.SkeetPro.gamestate.GameState;
 import com.mygdx.SkeetPro.main.SkeetPro;
 import com.badlogic.*;
@@ -110,8 +112,11 @@ public class GUIGame extends GUIScreen {
 			gamestate.createPlate(delta);
 
 		
-		if(gamestate.getFailPlates()>3)
+		if(gamestate.getFailPlates()>3){
+			FileSaving.LoadGameState("Jogador.cenas");
 			game.switchTo(SkeetPro.State.MAIN_MENU);
+			gamestate.SaveScore(p1);
+		}
 		if(gamestate.getBestscore()<p1.getScore())
 			gamestate.setBestScore(p1.getScore());
 		

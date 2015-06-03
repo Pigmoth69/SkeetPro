@@ -11,12 +11,13 @@ public class SaveClass implements Serializable{
 	private String nome;
 	private int score;
 	
-	SaveClass(){
-		
+	SaveClass(Player p1){
+		nome = p1.getName();
+		score = p1.getScore();
 	}
 	
 	public void LoadSave(){
-       
+       System.out.println("Score guardado: " + nome + " - " + score);
 	}
 	
 }

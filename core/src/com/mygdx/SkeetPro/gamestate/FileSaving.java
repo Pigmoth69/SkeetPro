@@ -6,12 +6,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import com.mygdx.SkeetPro.elements.Player;
+
 public class FileSaving {
 	
 	
-	public static void SaveScores(String caminho)
-	{
-		SaveClass g = new SaveClass();
+	public static void SaveScores(String caminho, Player p1) {
+		
+		SaveClass g = new SaveClass(p1);
 		try
 		{
 			FileOutputStream fileOut = new FileOutputStream(caminho);
@@ -19,7 +21,7 @@ public class FileSaving {
 			out.writeObject(g);
 			out.close();
 			fileOut.close();
-			System.out.printf("Serialized data is saved in " + caminho);
+			System.out.println("Serialized data is saved in " + caminho);
 		}catch(IOException i)
 		{
 			i.printStackTrace();
@@ -52,5 +54,6 @@ public class FileSaving {
 		
 		
 	}
+
 
 }

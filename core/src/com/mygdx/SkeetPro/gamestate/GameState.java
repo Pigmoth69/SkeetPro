@@ -140,6 +140,7 @@ public class GameState {
 		}
 		removeBrokenPlates();
 	}
+	
 	public int getFailPlates(){
 		return failPlates;
 	}
@@ -215,4 +216,8 @@ public class GameState {
 		return false;
 	}
 
+	public void SaveScore(Player p1){
+		FileSaving.SaveScores("Jogador.cenas", p1);
+	}
+	
 }
