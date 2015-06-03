@@ -1,0 +1,47 @@
+
+duckAnimationLeft.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+0
+  rotate: false
+  xy: 1, 1
+  size: 152, 95
+  orig: 152, 95
+  offset: 0, 0
+  index: -1
+1
+  rotate: false
+  xy: 155, 14
+  size: 156, 82
+  orig: 156, 82
+  offset: 0, 0
+  index: -1
+2
+  rotate: false
+  xy: 313, 31
+  size: 162, 65
+  orig: 162, 65
+  offset: 0, 0
+  index: -1
+3
+  rotate: false
+  xy: 477, 41
+  size: 161, 55
+  orig: 161, 55
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 640, 38
+  size: 148, 58
+  orig: 148, 58
+  offset: 0, 0
+  index: -1
+5
+  rotate: false
+  xy: 790, 28
+  size: 143, 68
+  orig: 143, 68
+  offset: 0, 0
+  index: -1
