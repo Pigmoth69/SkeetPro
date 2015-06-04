@@ -1,6 +1,7 @@
 package com.mygdx.SkeetPro.screens;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Timer;
 
@@ -215,8 +216,9 @@ public class GUIGame extends GUIScreen {
 	
 	
 	private void drawPlates(){
-		for(int i = 0; i < gamestate.getPlates().size();i++){
-			Plate p = gamestate.getPlates().get(i);
+		HashMap<Integer,Plate> copy = gamestate.getPlates();
+		for(Entry<Integer, Plate> entry : copy.entrySet()){
+			Plate p = entry.getValue();
 			batch.draw(plateSprite, (float)p.getX(), (float)p.getY(), p.getWidth(), p.getHeight());
 		}
 	}
