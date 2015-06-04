@@ -20,6 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.mygdx.SkeetPro.elements.Player;
+import com.mygdx.SkeetPro.gamestate.FileSaving;
 import com.mygdx.SkeetPro.main.SkeetPro;
 
 public class GUIMainMenu extends GUIScreen {
@@ -254,12 +256,15 @@ public class GUIMainMenu extends GUIScreen {
 		
 		highscores.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("highscores1");  
+                System.out.println("highscores1");
+                FileSaving.LoadGameState("Jogador.cenas");
+                SkeetPro.SaveState.LoadSave();
             	return true;
             }
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("highscores2"); 
+            	//FileSaving.LoadGameState("Jogador.cenas");
             }
         });
 		

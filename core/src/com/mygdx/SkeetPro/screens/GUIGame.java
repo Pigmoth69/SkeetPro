@@ -1,6 +1,7 @@
 package com.mygdx.SkeetPro.screens;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Timer;
 
 import com.badlogic.gdx.Gdx;
@@ -112,15 +113,23 @@ public class GUIGame extends GUIScreen {
 			gamestate.createPlate(delta);
 
 		
-		if(gamestate.getFailPlates()>3){
-			FileSaving.LoadGameState("Jogador.cenas");
+		if(gamestate.getFailPlates()>=1){
+			Scanner reader = new Scanner(System.in);
+			String nome;
+			nome = reader.next();
+			Player p2 = new Player("Bino", 0);
+			p1.setName(nome);
+			SkeetPro.SaveScore(p1);
+			gamestate.resetGameState(p2);
+			p1 = p2;
 			game.switchTo(SkeetPro.State.MAIN_MENU);
-			gamestate.SaveScore(p1);
 		}
+		
 		if(gamestate.getBestscore()<p1.getScore())
 			gamestate.setBestScore(p1.getScore());
 		
 		int brokenplates = gamestate.updatePlates();
+		
 		
 		p1.addScore(brokenplates);
 		switch(brokenplates){
@@ -132,8 +141,8 @@ public class GUIGame extends GUIScreen {
 			break;
 		default:
 		}
-
 		
+
 		gamestate.resetScope();
 		//System.out.println("Reload: "+reload_time);
 		//System.out.println("Delta: "+delta);

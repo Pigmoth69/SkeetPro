@@ -216,8 +216,15 @@ public class GameState {
 		return false;
 	}
 
-	public void SaveScore(Player p1){
-		FileSaving.SaveScores("Jogador.cenas", p1);
+	public void resetGameState(Player p1){
+		this.player1= p1;
+		this.player2 = null;
+		plates = new ArrayList<Plate>();
+		scope = new Scope();
+		failPlates=0;
+		bullets = 4;
+        reload_time = 0;
+        is_reloading = false;
+		createPlate(0);
 	}
-	
 }
