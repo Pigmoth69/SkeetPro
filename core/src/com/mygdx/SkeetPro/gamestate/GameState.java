@@ -1,6 +1,7 @@
 package com.mygdx.SkeetPro.gamestate;
 
 import java.util.*;
+import java.util.Map.Entry;
 
 import com.badlogic.gdx.Gdx;  
 import com.mygdx.SkeetPro.elements.Plate;
@@ -8,7 +9,7 @@ import com.mygdx.SkeetPro.elements.Player;
 import com.mygdx.SkeetPro.elements.Scope;
 
 public class GameState {
-	private ArrayList<Plate> plates;
+	private HashMap<Integer,Plate> plates;
 	private Player player1,player2;
 	private Scope scope;
 	private int failPlates; 
@@ -16,11 +17,12 @@ public class GameState {
 	private int bullets;
 	private float reload_time;
 	private boolean is_reloading;
+	private int plateID=0;
 	     
 	public GameState(Player player1){
 		this.player1= player1;
 		this.player2 = null;
-		plates = new ArrayList<Plate>();
+		plates = new HashMap<Integer,Plate>();
 		scope = new Scope();
 		failPlates=0;
 		bullets = 4;
@@ -51,23 +53,24 @@ public class GameState {
 
 		
 		double speed = Math.abs((finalPoint-initialPoint)/(float)(rand.nextInt(256)+ 128) /*(double)stage.getStageSpeed()*/);
-		plates.add(new Plate(width,height,initialPoint,finalPoint,speed));
+		plates.put(plateID++, new Plate(width,height,initialPoint,finalPoint,speed));
 	}
 
 	public GameState(Player player1,Player player2){
 		this.player1 = player1;
 		this.player2 = player2;
-		plates = new ArrayList<Plate>();
+		plates = new HashMap<Integer,Plate>();
 		
 	}
 	
 	public void movePlates(float delta){
-		for(int pos = 0; pos < plates.size();pos++){
-			movePlate(pos,delta);
+		for(Entry<Integer, Plate> entry : plates.entrySet()){
+			movePlate(entry.getKey(),delta);
 		}
 	}
 
 	private void movePlate(int pos,float delta) {
+		
 		Plate plate = plates.get(pos);
 		plate.setX((double) (plate.getX()+plate.getSpeed()*plate.getDirection()));
 		plate.setY(function(plate));
@@ -84,24 +87,32 @@ public class GameState {
 	
 	private int checkPlatesCollisionWithScope(){
 		int numOfBrokenPlates=0;
-		for(int i = 0; i < plates.size();i++){
-			Plate p = plates.get(i);
-			if(scope.getX() >= p.getX() && scope.getX() <=p.getX()+p.getWidth() && scope.getY()>= p.getY() && scope.getY() <= p.getY()+p.getHeight()){
+		for(Entry<Integer, Plate> entry : plates.entrySet()){
+			if(scope.getX() >= entry.getValue().getX() && scope.getX() <=entry.getValue().getX()+entry.getValue().getWidth() && scope.getY()>= entry.getValue().getY() && scope.getY() <= entry.getValue().getY()+entry.getValue().getHeight()){
 					numOfBrokenPlates++;
-					p.setStatus('B');
+					entry.getValue().setStatus('B');
 				}	
 		}
 		return numOfBrokenPlates;
 	}
 	
-	private void removeBrokenPlates(){
-		ArrayList<Plate> novo = new ArrayList<Plate>();
-		for(int i = 0; i < plates.size();i++){
-			Plate p = plates.get(i);
-			if(p.getStatus() == 'N')
-				novo.add(p);
+	private ArrayList<Integer> removeBrokenPlates(){
+
+		ArrayList<Integer> brokenPlates;
+		brokenPlates = new ArrayList<Integer>();
+		
+		for(Entry<Integer, Plate> entry : plates.entrySet()){
+		    if(entry.getValue().getStatus() == 'B'){
+		    	brokenPlates.add(entry.getKey());
+		    }	
 		}
-		plates = novo;
+		
+		for(Integer key: brokenPlates){
+			plates.remove(key);
+			
+		}
+		
+		return brokenPlates;
 	}
 	
 	public int updatePlates(){ // se acertou ou não em pratos
@@ -116,7 +127,7 @@ public class GameState {
 		return (float) (plate.getK()*(plate.getX()-plate.getFinalPoint())*(plate.getX()-plate.getInitialPoint()));		
 	}
 	
-	public ArrayList<Plate> getPlates(){
+	public HashMap<Integer,Plate> getPlates(){
 		return plates;
 	}
 
@@ -131,10 +142,10 @@ public class GameState {
 	}
 	
 	private void updateFailedPlates(){
-		for(int i = 0; i < plates.size();i++){
-			Plate p = plates.get(i);
-			if(p.getY() <0){
-				p.setStatus('B');
+		for(Entry<Integer, Plate> entry : plates.entrySet()){
+			
+			if(entry.getValue().getY() <0){
+				entry.getValue().setStatus('B');
 				failPlates++;
 			}
 		}
