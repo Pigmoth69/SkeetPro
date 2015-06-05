@@ -20,7 +20,7 @@ public class GUIMultiplayerHOST extends GUIScreen {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Stage stage;
-	private TextButton cancel,join,returnMenu;
+	private TextButton cancel,join,returnMenu; 
 	 private float timepassed=0; 
 	 int duck_x_right,duck_y_right, duck_x_left,duck_y_left,duckSpeedRight,duckSpeedLeft;
 	
