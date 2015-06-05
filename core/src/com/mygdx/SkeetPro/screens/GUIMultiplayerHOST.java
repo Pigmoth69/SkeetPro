@@ -15,12 +15,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
+import com.mygdx.SkeetPro.multiplayer.Packets;
+import com.mygdx.SkeetPro.multiplayer.server.GameServer;
 
 public class GUIMultiplayerHOST extends GUIScreen {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Stage stage;
-	private TextButton cancel,join,returnMenu; 
+	private TextButton IPadress,returnMenu; 
 	 private float timepassed=0; 
 	 int duck_x_right,duck_y_right, duck_x_left,duck_y_left,duckSpeedRight,duckSpeedLeft;
 	
@@ -32,17 +34,14 @@ public class GUIMultiplayerHOST extends GUIScreen {
         batch = new SpriteBatch();
         stage = new Stage();        //** window is stage **//
         
-     //   host = new TextButton("Host Game", Resources.style); //** Button text and style **//
-        join = new TextButton("Join Game", Resources.style); //** Button text and style **//
+        IPadress = new TextButton( "  "+Packets.IP, Resources.style); //** Button text and style **//
         returnMenu= new TextButton("Return", Resources.style); //** Button text and style **//
 
         
-      //  host.setSize(400, 100);
-        join.setSize(400, 100);
+        IPadress.setSize(640, 200);
         returnMenu.setSize(400, 100);           
         
-       // stage.addActor(host);
-        stage.addActor(join);
+        stage.addActor(IPadress);
         stage.addActor(returnMenu);
      
        
@@ -64,8 +63,7 @@ public class GUIMultiplayerHOST extends GUIScreen {
 	@Override
 	public void show() {
 		
-		
-     //   stage.clear();
+		//   stage.clear();
 
         
         
@@ -87,9 +85,9 @@ public class GUIMultiplayerHOST extends GUIScreen {
 	}
 
 	private void refreshButtonsPosition() {
-		//host.setPosition(Gdx.graphics.getWidth()/2 - host.getWidth()/2, Gdx.graphics.getHeight()-host.getHeight()- (Gdx.graphics.getHeight()-5*host.getHeight())/2); //** Button location **//
-       // join.setPosition(Gdx.graphics.getWidth()/2 - join.getWidth()/2,Gdx.graphics.getHeight()-join.getHeight()- (Gdx.graphics.getHeight()-3*host.getHeight())/2); //** Button location **//
-       // returnMenu.setPosition(Gdx.graphics.getWidth()/2 - returnMenu.getWidth()/2,Gdx.graphics.getHeight()-returnMenu.getHeight()- (Gdx.graphics.getHeight()-1*join.getHeight())/2); //** Button location **//
+		//IPadress.setPosition(Gdx.graphics.getWidth()/2 - IPadress.getWidth()/2, Gdx.graphics.getHeight()-IPadress.getHeight()- (Gdx.graphics.getHeight()-5*host.getHeight())/2); //** Button location **//
+		//returnMenu.setPosition(Gdx.graphics.getWidth()/2 - join.getWidth()/2,Gdx.graphics.getHeight()-join.getHeight()- (Gdx.graphics.getHeight()-3*host.getHeight())/2); //** Button location **//
+      
 	}
 
 	@Override
@@ -175,7 +173,7 @@ public class GUIMultiplayerHOST extends GUIScreen {
 	}
 	 
 	public void checkButtonListeners(){ 
-	/*	host.addListener(new InputListener() {
+		/*host.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("hostgame1");  
             	return true;
@@ -187,7 +185,7 @@ public class GUIMultiplayerHOST extends GUIScreen {
             }
         });*/
 		
-		join.addListener(new InputListener() {
+		/*join.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("joingame1");
                 return true;
@@ -197,7 +195,7 @@ public class GUIMultiplayerHOST extends GUIScreen {
             	System.out.println("joingame2"); 
             	//FileSaving.LoadGameState("Jogador.cenas");
             }
-        });
+        });*/
 		
 		returnMenu.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -207,7 +205,7 @@ public class GUIMultiplayerHOST extends GUIScreen {
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("ReturnMenu2"); 
-            	game.switchTo(SkeetPro.State.MAIN_MENU);
+            	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU);
             }
         });
 		

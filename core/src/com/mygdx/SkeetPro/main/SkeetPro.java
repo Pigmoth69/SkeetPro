@@ -15,6 +15,7 @@ import com.mygdx.SkeetPro.gamestate.FileSaving;
 import com.mygdx.SkeetPro.gamestate.SaveClass;
 import com.mygdx.SkeetPro.screens.GUIGame;
 import com.mygdx.SkeetPro.screens.GUIMainMenu;
+import com.mygdx.SkeetPro.screens.GUIMultiplayerHOST;
 import com.mygdx.SkeetPro.screens.GUIMultiplayerMenu;
 import com.mygdx.SkeetPro.screens.GUIScore;
 import com.mygdx.SkeetPro.screens.GUIScreen;
@@ -33,7 +34,8 @@ public class SkeetPro extends Game {
 		PLAY_GAME,
 		SPLASH,
 		SCORE,
-		MULTIPLAYER_MENU
+		MULTIPLAYER_MENU,
+		MULTIPLAYER_MENU_HOST
 	};
 	
 	protected void switchScreen(Screen scr){
@@ -50,9 +52,10 @@ public class SkeetPro extends Game {
 		menus.add(new GUISplash(this));
 		menus.add(new GUIScore(this));
 		menus.add(new GUIMultiplayerMenu(this));
+		menus.add(new GUIMultiplayerHOST(this));
 		SaveState = FileSaving.LoadGameState("Jogador.cenas");
 		if (SaveState == null){
-			System.out.println("iniciar saveState");
+			System.out.println("iniciar saveState"); 
 			SaveState = new SaveClass();
 		}
 		switchTo(State.SPLASH);
@@ -82,6 +85,10 @@ public class SkeetPro extends Game {
 			break;
 		case MULTIPLAYER_MENU:
 			current = menus.get(4);
+			break;
+		case MULTIPLAYER_MENU_HOST:
+			current = menus.get(5);
+			break;
 		}
 		
 		stack.push(st);

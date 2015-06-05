@@ -92,7 +92,7 @@ public class Resources {
 	}
 	
 	private void loadTextures(){
-		background = new Texture(Gdx.files.internal("forest.png"));
+		background = new Texture(Gdx.files.internal("forest.jpg"));
 		shells = new ArrayList<Texture>();
 		shells.add(new Texture(Gdx.files.internal("shell0.png")));
 		shells.add(new Texture(Gdx.files.internal("shell1.png")));
