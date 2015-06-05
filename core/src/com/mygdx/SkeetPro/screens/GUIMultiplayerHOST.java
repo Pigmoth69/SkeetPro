@@ -32,16 +32,16 @@ public class GUIMultiplayerHOST extends GUIScreen {
         batch = new SpriteBatch();
         stage = new Stage();        //** window is stage **//
         
-        host = new TextButton("Host Game", Resources.style); //** Button text and style **//
+     //   host = new TextButton("Host Game", Resources.style); //** Button text and style **//
         join = new TextButton("Join Game", Resources.style); //** Button text and style **//
         returnMenu= new TextButton("Return", Resources.style); //** Button text and style **//
 
         
-        host.setSize(400, 100);
+      //  host.setSize(400, 100);
         join.setSize(400, 100);
         returnMenu.setSize(400, 100);           
         
-        stage.addActor(host);
+       // stage.addActor(host);
         stage.addActor(join);
         stage.addActor(returnMenu);
      
@@ -87,9 +87,9 @@ public class GUIMultiplayerHOST extends GUIScreen {
 	}
 
 	private void refreshButtonsPosition() {
-		host.setPosition(Gdx.graphics.getWidth()/2 - host.getWidth()/2, Gdx.graphics.getHeight()-host.getHeight()- (Gdx.graphics.getHeight()-5*host.getHeight())/2); //** Button location **//
-        join.setPosition(Gdx.graphics.getWidth()/2 - join.getWidth()/2,Gdx.graphics.getHeight()-join.getHeight()- (Gdx.graphics.getHeight()-3*host.getHeight())/2); //** Button location **//
-        returnMenu.setPosition(Gdx.graphics.getWidth()/2 - returnMenu.getWidth()/2,Gdx.graphics.getHeight()-returnMenu.getHeight()- (Gdx.graphics.getHeight()-1*join.getHeight())/2); //** Button location **//
+		//host.setPosition(Gdx.graphics.getWidth()/2 - host.getWidth()/2, Gdx.graphics.getHeight()-host.getHeight()- (Gdx.graphics.getHeight()-5*host.getHeight())/2); //** Button location **//
+       // join.setPosition(Gdx.graphics.getWidth()/2 - join.getWidth()/2,Gdx.graphics.getHeight()-join.getHeight()- (Gdx.graphics.getHeight()-3*host.getHeight())/2); //** Button location **//
+       // returnMenu.setPosition(Gdx.graphics.getWidth()/2 - returnMenu.getWidth()/2,Gdx.graphics.getHeight()-returnMenu.getHeight()- (Gdx.graphics.getHeight()-1*join.getHeight())/2); //** Button location **//
 	}
 
 	@Override
@@ -173,9 +173,9 @@ public class GUIMultiplayerHOST extends GUIScreen {
 	public void dispose() {
 
 	}
-	
-	public void checkButtonListeners(){
-		host.addListener(new InputListener() {
+	 
+	public void checkButtonListeners(){ 
+	/*	host.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("hostgame1");  
             	return true;
@@ -185,7 +185,7 @@ public class GUIMultiplayerHOST extends GUIScreen {
             	System.out.println("hostgame2"); 
             	//game.switchTo(SkeetPro.State.PLAY_GAME);
             }
-        });
+        });*/
 		
 		join.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
