@@ -90,11 +90,21 @@ public class GUIGame extends GUIScreen {
 
 		
 		if(gamestate.getFailPlates()>=1){
-			Scanner reader = new Scanner(System.in);
-			String nome;
-			nome = reader.next();
+			String nome=null; 
+			
+			MyTextInputListener listener = new MyTextInputListener();
+	        
+	      
+			Gdx.input.getTextInput(listener, "Score", "Write your name here", null);
+			
+			 do{
+	        	nome = listener.getNome();
+	        } while(nome == null);
+	        
+	        System.out.println(listener.getNome());
+	        
 			Player p2 = new Player("Bino", 0);
-			p1.setName(nome);
+			p1.setName("Tone");
 			SkeetPro.SaveScore(p1);
 			gamestate.resetGameState(p2);
 			p1 = p2;

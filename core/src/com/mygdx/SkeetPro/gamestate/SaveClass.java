@@ -51,6 +51,8 @@ public class SaveClass implements Serializable{
 		}
 	}
 	
-
+	public ArrayList<Player> getHS(){
+		return highScores;
+	}
 	
 }

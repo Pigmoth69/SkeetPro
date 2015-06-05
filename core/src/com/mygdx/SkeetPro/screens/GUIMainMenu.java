@@ -220,13 +220,12 @@ public class GUIMainMenu extends GUIScreen {
 		highscores.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("highscores1");
-                FileSaving.LoadGameState("Jogador.cenas");
-                SkeetPro.SaveState.LoadSave();
             	return true;
             }
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("highscores2"); 
+            	game.switchTo(SkeetPro.State.SCORE);
             	//FileSaving.LoadGameState("Jogador.cenas");
             }
         });
