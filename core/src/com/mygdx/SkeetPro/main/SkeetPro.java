@@ -15,6 +15,7 @@ import com.mygdx.SkeetPro.gamestate.FileSaving;
 import com.mygdx.SkeetPro.gamestate.SaveClass;
 import com.mygdx.SkeetPro.screens.GUIGame;
 import com.mygdx.SkeetPro.screens.GUIMainMenu;
+import com.mygdx.SkeetPro.screens.GUIMultiplayerMenu;
 import com.mygdx.SkeetPro.screens.GUIScore;
 import com.mygdx.SkeetPro.screens.GUIScreen;
 import com.mygdx.SkeetPro.screens.GUISplash;
@@ -31,7 +32,8 @@ public class SkeetPro extends Game {
 		MAIN_MENU,
 		PLAY_GAME,
 		SPLASH,
-		SCORE
+		SCORE,
+		MULTIPLAYER_MENU
 	};
 	
 	protected void switchScreen(Screen scr){
@@ -40,12 +42,14 @@ public class SkeetPro extends Game {
 	
 	@Override
 	public void create () {
+		new Resources();
 		menus = new ArrayList<GUIScreen>();
 		stack = new Stack<State>();
 		menus.add(new GUIMainMenu(this));
 		menus.add(new GUIGame(this));
 		menus.add(new GUISplash(this));
 		menus.add(new GUIScore(this));
+		menus.add(new GUIMultiplayerMenu(this));
 		SaveState = FileSaving.LoadGameState("Jogador.cenas");
 		if (SaveState == null){
 			System.out.println("iniciar saveState");
@@ -76,6 +80,8 @@ public class SkeetPro extends Game {
 		case SCORE:
 			current = menus.get(3);
 			break;
+		case MULTIPLAYER_MENU:
+			current = menus.get(4);
 		}
 		
 		stack.push(st);
@@ -84,7 +90,7 @@ public class SkeetPro extends Game {
 		current.show();
 	}
 	
-	public void back()
+	/*public void back()
 	{
 		State st = stack.pop();
 		
@@ -101,7 +107,7 @@ public class SkeetPro extends Game {
 		Gdx.input.setInputProcessor(current);
 		setScreen(current);
 		current.show();
-	}
+	}*/
 
 	@Override
 	public void render () {
