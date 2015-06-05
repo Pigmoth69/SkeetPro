@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.mygdx.SkeetPro.gamestate.FileSaving;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
+import com.mygdx.SkeetPro.multiplayer.server.GameServer;
 
 public class GUIMultiplayerMenu extends GUIScreen {
 
@@ -30,8 +31,8 @@ public class GUIMultiplayerMenu extends GUIScreen {
 	private SpriteBatch batch;
 	private Stage stage;
 	private TextButton host,join,returnMenu;
-	 private float timepassed=0;
-	 int duck_x_right,duck_y_right, duck_x_left,duck_y_left,duckSpeedRight,duckSpeedLeft;
+	private float timepassed=0;
+	int duck_x_right,duck_y_right, duck_x_left,duck_y_left,duckSpeedRight,duckSpeedLeft;
 	
 	
 	public GUIMultiplayerMenu(SkeetPro parent) {
@@ -75,7 +76,7 @@ public class GUIMultiplayerMenu extends GUIScreen {
 		
 		
      //   stage.clear();
-
+		
         
         
         Gdx.input.setInputProcessor(stage); //** stage is responsive **//
@@ -192,7 +193,11 @@ public class GUIMultiplayerMenu extends GUIScreen {
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("hostgame2"); 
-            	//game.switchTo(SkeetPro.State.PLAY_GAME);
+            	//GameServer myRunnable = new GameServer(); 
+        	//	Thread myThread = new Thread(myRunnable);
+        	//	myThread.setDaemon(true); // important, otherwise JVM does not exit at end of main()
+        		//myThread.start();     		
+            	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU_HOST);
             }
         });
 		

@@ -2,6 +2,7 @@ package com.mygdx.SkeetPro.multiplayer;
 
 public class Packets {
 
+	public static String IP;
 	//cliente to the server
 	public static class Packet0LoginRequest{};
 	
