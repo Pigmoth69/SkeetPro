@@ -1,8 +1,12 @@
-package com.mygdx.SkeetPro.multiplayer;
+package com.mygdx.SkeetPro.multiplayer.server;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
+import com.mygdx.SkeetPro.multiplayer.Packets;
+import com.mygdx.SkeetPro.multiplayer.Packets.Packet0LoginRequest;
+import com.mygdx.SkeetPro.multiplayer.Packets.Packet1LoginAwnser;
+import com.mygdx.SkeetPro.multiplayer.Packets.Packet2Message;
 
 
 public class ServerNetworkListener extends Listener{

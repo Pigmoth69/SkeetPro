@@ -1,4 +1,4 @@
-package com.mygdx.SkeetPro.multiplayer;
+package com.mygdx.SkeetPro.multiplayer.client;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Scanner;
@@ -6,6 +6,10 @@ import java.util.Scanner;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.minlog.Log;
+import com.mygdx.SkeetPro.multiplayer.Packets;
+import com.mygdx.SkeetPro.multiplayer.Packets.Packet0LoginRequest;
+import com.mygdx.SkeetPro.multiplayer.Packets.Packet1LoginAwnser;
+import com.mygdx.SkeetPro.multiplayer.Packets.Packet2Message;
 
 
 public class GameClient {
