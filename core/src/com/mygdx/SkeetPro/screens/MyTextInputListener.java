@@ -11,7 +11,7 @@ public class MyTextInputListener implements TextInputListener {
 	   }
 
 	   @Override
-	   public void canceled () {
+	   public void canceled () { 
 		   
 	   }
 	    
