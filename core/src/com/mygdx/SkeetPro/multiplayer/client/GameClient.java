@@ -23,7 +23,7 @@ public class GameClient {
 		client = new Client();
 		register();
 		
-		ClientNetworkListener nl = new ClientNetworkListener();
+		ClientNetworkListener nl = new ClientNetworkListener(); 
 		nl.init(client);
 		client.addListener(nl);
 		
