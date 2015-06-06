@@ -1,4 +1,4 @@
-package com.mygdx.SkeetPro.gamestate;
+package com.mygdx.SkeetPro.files;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

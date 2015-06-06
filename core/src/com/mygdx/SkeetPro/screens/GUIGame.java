@@ -24,7 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.SkeetPro.elements.Plate;
 import com.mygdx.SkeetPro.elements.Player;
-import com.mygdx.SkeetPro.gamestate.FileSaving;
+import com.mygdx.SkeetPro.files.FileSaving;
 import com.mygdx.SkeetPro.gamestate.GameState;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
@@ -117,6 +117,8 @@ public class GUIGame extends GUIScreen {
 				SkeetPro.SaveScore(p1);
 				gamestate.resetGameState(p2);
 				p1 = p2;
+				firstNameInput = true;
+				listener.setInputDone(false);
 				game.switchTo(SkeetPro.State.MAIN_MENU);
 			}
 		}

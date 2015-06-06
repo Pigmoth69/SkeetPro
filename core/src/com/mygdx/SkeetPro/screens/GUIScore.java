@@ -14,9 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.SkeetPro.elements.Player;
-import com.mygdx.SkeetPro.gamestate.FileSaving;
+import com.mygdx.SkeetPro.files.FileSaving;
+import com.mygdx.SkeetPro.files.SaveClass;
 import com.mygdx.SkeetPro.gamestate.GameState;
-import com.mygdx.SkeetPro.gamestate.SaveClass;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
 

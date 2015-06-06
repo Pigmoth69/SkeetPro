@@ -18,6 +18,8 @@ public class GameState {
 	private float reload_time;
 	private boolean is_reloading;
 	private int plateID=0;
+	private int Wwidth = 1280;
+	private int Wheight = 720;
 	     
 	public GameState(Player player1){
 		this.player1= player1;
@@ -28,31 +30,29 @@ public class GameState {
 		bullets = 4;
         reload_time = 0;
         is_reloading = false;
-		createPlate(0);
+		//createPlate(0);
 	}
 
 	public void createPlate(float delta){
-		/*time+=delta;
-
-		if(time > 0.01f){
-			time = 0;
-			return; 
-		}*/
 
 		Random rand = new Random();
 		int initialPoint= 0;
 		int finalPoint=0;
 
-		int width =(int) (Gdx.graphics.getWidth()*0.13) ;
-		int height = (int) (Gdx.graphics.getHeight()*0.23);
+		int width =(int) (Wwidth*0.13) ;
+		int height = (int) (Wheight*0.23);
 		
 		do{
-			initialPoint = rand.nextInt(Gdx.graphics.getWidth()+1-width);
-			finalPoint = rand.nextInt(Gdx.graphics.getWidth()+1-width);
+			initialPoint = rand.nextInt(Wwidth+1-width);
+			finalPoint = rand.nextInt(Wwidth+1-width);
 		}while(initialPoint == finalPoint );
 
 		
 		double speed = Math.abs((finalPoint-initialPoint)/(float)(rand.nextInt(256)+ 128) /*(double)stage.getStageSpeed()*/);
+		addPLate(width,height,initialPoint,finalPoint,speed);
+	}
+	
+	public void addPLate(int width, int height, int initialPoint, int finalPoint, double speed){
 		plates.put(plateID++, new Plate(width,height,initialPoint,finalPoint,speed));
 	}
 
@@ -117,8 +117,7 @@ public class GameState {
 	public int updatePlates(){ // se acertou ou não em pratos
 		updateFailedPlates();
 		int brokenPlates = checkPlatesCollisionWithScope();
-		if(brokenPlates == 0)
-			return 0;
+		
 		return brokenPlates;
 	}
 	
@@ -235,6 +234,6 @@ public class GameState {
 		bullets = 4;
         reload_time = 0;
         is_reloading = false;
-		createPlate(0);
+		//createPlate(0);
 	}
 }

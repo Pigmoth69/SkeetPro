@@ -26,6 +26,9 @@ public class MyTextInputListener implements TextInputListener {
 		   return inputDone;
 	   }
 	
-		
+		public boolean setInputDone(boolean bol){
+			inputDone = bol;
+			return inputDone;
+		}
 	
 	}
