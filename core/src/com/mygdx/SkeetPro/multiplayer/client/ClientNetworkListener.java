@@ -10,7 +10,7 @@ import com.mygdx.SkeetPro.multiplayer.Packets.Packet1LoginAwnser;
 import com.mygdx.SkeetPro.multiplayer.Packets.Packet2Message;
 
 public class ClientNetworkListener extends Listener{
-	private Client client;
+	private static Client client;
 	
 	
 	public void init(Client client) {
