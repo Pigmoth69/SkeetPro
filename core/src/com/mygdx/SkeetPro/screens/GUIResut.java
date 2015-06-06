@@ -21,32 +21,30 @@ import com.mygdx.SkeetPro.main.SkeetPro;
 import com.mygdx.SkeetPro.multiplayer.Packets;
 import com.mygdx.SkeetPro.multiplayer.server.GameServer;
 
-public class GUIMultiplayerHOST extends GUIScreen {
+public class GUIResut extends GUIScreen {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Stage stage;
-	private TextButton IPadress,returnMenu; 
-	 private float timepassed=0; 
-	 int duck_x_right,duck_y_right, duck_x_left,duck_y_left,duckSpeedRight,duckSpeedLeft;
+	private TextButton result,returnMenu; 
+	private float timepassed=0; 
+	int duck_x_right,duck_y_right, duck_x_left,duck_y_left,duckSpeedRight,duckSpeedLeft;
 	
 	
-	public GUIMultiplayerHOST(SkeetPro parent) {
+	public GUIResut(SkeetPro parent) {
 		super(parent);
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); //** w/h ratio = 1.66 **//
         batch = new SpriteBatch();
         stage = new Stage();        //** window is stage **//
         
-        IPadress = new TextButton( null, Resources.style2); //** Button text and style **//7;
-
-        
+        result = new TextButton( null, Resources.style2); //** Button text and style **//7;
         returnMenu= new TextButton("Return", Resources.style); //** Button text and style **//
 
         
-        IPadress.setSize(640, 200);
+        result.setSize(640, 200);
         returnMenu.setSize(400, 100);           
         
-        stage.addActor(IPadress);
+        stage.addActor(result);
         stage.addActor(returnMenu);
      
        
@@ -69,13 +67,11 @@ public class GUIMultiplayerHOST extends GUIScreen {
 
 	@Override
 	public void show() {
-		IPadress.setText("IP: "+Packets.IP);
-		game.client.connectClient("localhost");
 		//   stage.clear();
+
+        
 		
 		
-        
-        
         Gdx.input.setInputProcessor(stage); //** stage is responsive **//
 
         //modificar isto!
@@ -94,7 +90,7 @@ public class GUIMultiplayerHOST extends GUIScreen {
 	}
 
 	private void refreshButtonsPosition() {
-		IPadress.setPosition(Gdx.graphics.getWidth()/2 - IPadress.getWidth()/2, Gdx.graphics.getHeight()-(int)(Gdx.graphics.getHeight()*0.5)); //** Button location **//
+		result.setPosition(Gdx.graphics.getWidth()/2 - result.getWidth()/2, Gdx.graphics.getHeight()-(int)(Gdx.graphics.getHeight()*0.5)); //** Button location **//
 		returnMenu.setPosition(Gdx.graphics.getWidth()/2 - returnMenu.getWidth()/2,Gdx.graphics.getHeight()-(int)(Gdx.graphics.getHeight()*0.5)-returnMenu.getHeight()); //** Button location **//
       
 	}
@@ -180,6 +176,10 @@ public class GUIMultiplayerHOST extends GUIScreen {
 	public void dispose() {
 
 	}
+	
+	public void setResult(String r){
+		result.setText(r);
+	}
 	 
 	public void checkButtonListeners(){ 
 		
@@ -192,7 +192,6 @@ public class GUIMultiplayerHOST extends GUIScreen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("ReturnMenu2"); 
             	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU);
-            	GUIMultiplayerMenu.gameserver.closeServer();
             }
         });
 		
