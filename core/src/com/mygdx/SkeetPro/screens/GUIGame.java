@@ -36,6 +36,9 @@ public class GUIGame extends GUIScreen {
 	private GameState gamestate;
 	private Player p1;
 	private float time;
+	private boolean firstNameInput = true;
+	MyTextInputListener listener;
+	private int limitFailedPlates = 1;
 	
 	public GUIGame(SkeetPro parent) {
 		super(parent);
@@ -47,6 +50,8 @@ public class GUIGame extends GUIScreen {
         p1 = new Player("Daniel", 0);
         gamestate = new GameState(p1);
         time = 0;
+		
+		listener = new MyTextInputListener();
 	}
 
 	@Override
@@ -68,71 +73,76 @@ public class GUIGame extends GUIScreen {
 		Resources.scoreFont.draw(batch, "Failed Plates: "+ gamestate.getFailPlates(), 0, Gdx.graphics.getHeight()-2*Resources.scoreFont.getCapHeight()-2*10);
 		Resources.scoreFont.draw(batch, "BestScore: "+ gamestate.getBestscore(), 0, Gdx.graphics.getHeight()-Resources.scoreFont.getCapHeight()-10);
 		drawPlates();
-		
+			
 		gamestate.manageReload(delta);
-		
-		//System.out.println("reload" + gamestate.reloadTime());
-		
+			
 		drawShells();
 		batch.end();
-
-		gamestate.movePlates(delta);	
-		
-		if(time > 1){
-			gamestate.createPlate(delta);
-			time = 0;
-		}
-		else
-			time += delta;
-		
-		if(gamestate.getPlates().size()==0)
-			gamestate.createPlate(delta);
-
-		
-		if(gamestate.getFailPlates()>=1){
-			String nome=null; 
+	
+		if(!(gamestate.getFailPlates()>= limitFailedPlates)){
+			gamestate.movePlates(delta);	
 			
-			MyTextInputListener listener = new MyTextInputListener();
-	        
-	      
-			Gdx.input.getTextInput(listener, "Score", "Write your name here", null);
+			if(time > 1){
+				gamestate.createPlate(delta);
+				time = 0;
+			}
+			else
+				time += delta;
 			
-			 do{
-	        	nome = listener.getNome();
-	        } while(nome == null);
-	        
-	        System.out.println(listener.getNome());
-	        
-			Player p2 = new Player("Bino", 0);
-			p1.setName("Tone");
-			SkeetPro.SaveScore(p1);
-			gamestate.resetGameState(p2);
-			p1 = p2;
-			game.switchTo(SkeetPro.State.MAIN_MENU);
+			if(gamestate.getPlates().size()==0)
+				gamestate.createPlate(delta);
 		}
-		
-		if(gamestate.getBestscore()<p1.getScore())
-			gamestate.setBestScore(p1.getScore());
-		
-		int brokenplates = gamestate.updatePlates();
-		
-		
-		p1.addScore(brokenplates);
-		switch(brokenplates){
-		case 2:
-			Resources.doubleKill.play();
-			break;
-		case 3:
-			Resources.tripleKill.play();
-			break;
-		default:
-		}
-		
 
-		gamestate.resetScope();
-		//System.out.println("Reload: "+reload_time);
-		//System.out.println("Delta: "+delta);
-		//System.out.println("Balas: "+gamestate.getBullets());
+		
+		if(gamestate.getFailPlates()>= limitFailedPlates){
+			String nome;
+			
+			if(firstNameInput){
+				nome=null;
+		      
+				Gdx.input.getTextInput(listener, "Score", "Write your name here", null);
+				
+				firstNameInput = false;
+			}
+			
+			if(listener.getInputDone()){ 
+		        nome = listener.getNome();
+		        	        
+		        System.out.println(listener.getNome());
+		        
+		        if (nome == null)
+		        	nome = "bot";
+				Player p2 = new Player(nome, 0);
+				p1.setName(nome);
+				SkeetPro.SaveScore(p1);
+				gamestate.resetGameState(p2);
+				p1 = p2;
+				game.switchTo(SkeetPro.State.MAIN_MENU);
+			}
+		}
+		
+		if(!(gamestate.getFailPlates()>= limitFailedPlates)){
+			
+			if(gamestate.getBestscore()<p1.getScore())
+				gamestate.setBestScore(p1.getScore());
+			
+			int brokenplates = gamestate.updatePlates();
+			
+			
+			p1.addScore(brokenplates);
+			switch(brokenplates){
+			case 2:
+				Resources.doubleKill.play();
+				break;
+			case 3:
+				Resources.tripleKill.play();
+				break;
+			default:
+			}
+			
+	
+			gamestate.resetScope();
+		}
 		
 	}
 
