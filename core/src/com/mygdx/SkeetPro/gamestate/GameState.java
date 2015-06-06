@@ -236,4 +236,9 @@ public class GameState {
         is_reloading = false;
 		//createPlate(0);
 	}
+
+	public Player getPlayer1() {
+		return player1;
+	}
+
 }
