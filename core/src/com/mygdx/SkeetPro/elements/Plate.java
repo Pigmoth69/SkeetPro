@@ -11,6 +11,8 @@ public class Plate extends Element{
 	double speed;
 	int direction; // 0 ou 1 : se 0 vai para a -> se 1 <-
 	double K;
+	private int Wwidth = 1280;
+	private int Wheight = 720;
 	
 
 	public Plate(float width,float height,int initialPoint,int finalPoint,double speed){
@@ -59,7 +61,7 @@ public class Plate extends Element{
 	}
 	
 	private void setK(){
-		int MAX = Gdx.graphics.getHeight()-(int)this.getHeight();
+		int MAX = Wheight-(int)this.getHeight();
 		K= (-4*MAX)/(Math.pow(getFinalPoint(), 2)-2*getFinalPoint()*getInitialPoint()+Math.pow(getInitialPoint(), 2));
 	}
 	
