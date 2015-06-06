@@ -27,7 +27,7 @@ public class Resources {
 	public static Texture splashTexture;
 	
 	//TextureAtlas
-	public static TextureAtlas buttonsAtlas,soundButtonAtlas;
+	public static TextureAtlas buttonsAtlas,soundButtonAtlas,ipSkinAtlas;
 	public static TextureAtlas duckAtlasRight;
 	public static TextureAtlas duckAtlasLeft;
 	
@@ -56,10 +56,10 @@ public class Resources {
 	public static LabelStyle scoreStyle;
 	
 	//Skin
-	public static Skin buttonSkin,soundButtonSkin;
+	public static Skin buttonSkin,soundButtonSkin,ipSkin;
 	
 	//TextButtonStyle
-	public static TextButtonStyle style;
+	public static TextButtonStyle style,style2;
 	public static TextButtonStyle soundButtonStyle;
 	
 	//Label
@@ -92,7 +92,7 @@ public class Resources {
 	}
 	
 	private void loadTextures(){
-		background = new Texture(Gdx.files.internal("forest.jpg"));
+		background = new Texture(Gdx.files.internal("forest.png"));
 		shells = new ArrayList<Texture>();
 		shells.add(new Texture(Gdx.files.internal("shell0.png")));
 		shells.add(new Texture(Gdx.files.internal("shell1.png")));
@@ -107,6 +107,8 @@ public class Resources {
 	private void loadTextureAtlas(){
 		buttonsAtlas = new TextureAtlas("MenuButtons.atlas"); //** button atlas image **// 
         soundButtonAtlas = new TextureAtlas("SoundButtons.atlas");
+        ipSkinAtlas = new TextureAtlas("ipLabelAtlas.atlas");
+        ipSkin.addRegions(ipSkinAtlas);
         soundButtonSkin.addRegions(soundButtonAtlas);
         buttonSkin.addRegions(buttonsAtlas); //** skins for on and off **//
         duckAtlasRight = new TextureAtlas(Gdx.files.internal("duckAnimationRigth.atlas"));
@@ -120,19 +122,24 @@ public class Resources {
 	private void loadSkins(){
 		buttonSkin = new Skin();
         soundButtonSkin = new Skin();
+        ipSkin = new Skin();
 	}
 	private void loadBitmapFont(){
 		white = new BitmapFont(Gdx.files.internal("teste.fnt"),false); //** font
         scoreFont = new BitmapFont(Gdx.files.internal("scoreFont.fnt"));
 	}
 	private void loadTextButtonStyles(){
-		style = new TextButtonStyle(); //** Button properties **//  
+		style = new TextButtonStyle(); //** Button properties **//
+		style2 = new TextButtonStyle();
 		soundButtonStyle = new TextButtonStyle(); //** Button properties **//
 		style.up = buttonSkin.getDrawable("ButtonON");
         style.down = buttonSkin.getDrawable("ButtonOFF");
+        style2.up = ipSkin.getDrawable("ipLabel");
+        style2.down = ipSkin.getDrawable("ipLabel");
         soundButtonStyle.up = soundButtonSkin.getDrawable("soundON");
         soundButtonStyle.down = soundButtonSkin.getDrawable("soundOFF");
         style.font = white;
+        style2.font=white;
         soundButtonStyle.font = white;		
 	}
 	private void loadAnimations(){

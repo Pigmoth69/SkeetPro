@@ -33,10 +33,11 @@ public class GUIMultiplayerMenu extends GUIScreen {
 	private TextButton host,join,returnMenu;
 	private float timepassed=0;
 	int duck_x_right,duck_y_right, duck_x_left,duck_y_left,duckSpeedRight,duckSpeedLeft;
-	
+	public static GameServer gameserver;
 	
 	public GUIMultiplayerMenu(SkeetPro parent) {
 		super(parent);
+		gameserver = new GameServer();
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); //** w/h ratio = 1.66 **//
         batch = new SpriteBatch();
@@ -193,10 +194,7 @@ public class GUIMultiplayerMenu extends GUIScreen {
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("hostgame2"); 
-            	//GameServer myRunnable = new GameServer(); 
-        	//	Thread myThread = new Thread(myRunnable);
-        	//	myThread.setDaemon(true); // important, otherwise JVM does not exit at end of main()
-        		//myThread.start();     		
+            	gameserver.startServer();
             	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU_HOST);
             }
         });

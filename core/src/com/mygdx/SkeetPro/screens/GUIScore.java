@@ -42,7 +42,6 @@ public class GUIScore extends GUIScreen{
            
         stage.addActor(exit);
         
-        Resources.music.setLooping(true);  
         checkButtonListeners();
 		
 	}
@@ -50,9 +49,8 @@ public class GUIScore extends GUIScreen{
 	@Override
 	public void show(){
         FileSaving.LoadGameState("Jogador.cenas");
-        SkeetPro.SaveState.LoadSave();
+       // SkeetPro.SaveState.LoadSave();
 		
-		Resources.music.play();
 		
 		Gdx.input.setInputProcessor(stage);
 		
@@ -75,9 +73,11 @@ public class GUIScore extends GUIScreen{
         batch.begin();
         batch.draw(Resources.background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         
-        for(int i = 0; i < SkeetPro.SaveState.getHS().size(); i++){
+        //Esta função está a dar erro no dispositivo android... Não sei porquê mas tem de se ver
+        
+       /* for(int i = 0; i < SkeetPro.SaveState.getHS().size(); i++){
 	        Resources.scoreFont.draw(batch, "" + SkeetPro.SaveState.getHS().get(i).getName() + " -> " + SkeetPro.SaveState.getHS().get(i).getScore(), 100, Gdx.graphics.getHeight() - i*Resources.scoreFont.getCapHeight() - i*20 - 150);
-        }
+        }*/
     	
         batch.end();
         stage.draw();

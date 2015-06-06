@@ -238,8 +238,6 @@ public class GUIMainMenu extends GUIScreen {
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("options2"); 
-            	MyTextInputListener listener = new MyTextInputListener();
-            	Gdx.input.getTextInput(listener, "Dialog Title", "Initial Textfield Value", null);
             }
         });
 		

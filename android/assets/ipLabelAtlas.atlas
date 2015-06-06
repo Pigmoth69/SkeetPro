@@ -1,0 +1,12 @@
+
+ipLabelAtlas.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+ipLabel
+  rotate: false
+  xy: 1, 1
+  size: 429, 127
+  orig: 429, 127
+  offset: 0, 0
+  index: -1

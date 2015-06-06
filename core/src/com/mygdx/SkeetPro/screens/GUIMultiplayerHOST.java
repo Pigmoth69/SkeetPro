@@ -2,6 +2,8 @@ package com.mygdx.SkeetPro.screens;
 
 import java.util.Random;
 
+import sun.font.TextLabel;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
@@ -34,7 +37,9 @@ public class GUIMultiplayerHOST extends GUIScreen {
         batch = new SpriteBatch();
         stage = new Stage();        //** window is stage **//
         
-        IPadress = new TextButton( "  "+Packets.IP, Resources.style); //** Button text and style **//
+        IPadress = new TextButton( null, Resources.style2); //** Button text and style **//7;
+
+        
         returnMenu= new TextButton("Return", Resources.style); //** Button text and style **//
 
         
@@ -58,11 +63,13 @@ public class GUIMultiplayerHOST extends GUIScreen {
 
         checkButtonListeners();
         
+        
+        
 	}
 
 	@Override
 	public void show() {
-		
+		IPadress.setText("IP: "+Packets.IP);
 		//   stage.clear();
 
         
@@ -85,8 +92,8 @@ public class GUIMultiplayerHOST extends GUIScreen {
 	}
 
 	private void refreshButtonsPosition() {
-		//IPadress.setPosition(Gdx.graphics.getWidth()/2 - IPadress.getWidth()/2, Gdx.graphics.getHeight()-IPadress.getHeight()- (Gdx.graphics.getHeight()-5*host.getHeight())/2); //** Button location **//
-		//returnMenu.setPosition(Gdx.graphics.getWidth()/2 - join.getWidth()/2,Gdx.graphics.getHeight()-join.getHeight()- (Gdx.graphics.getHeight()-3*host.getHeight())/2); //** Button location **//
+		IPadress.setPosition(Gdx.graphics.getWidth()/2 - IPadress.getWidth()/2, Gdx.graphics.getHeight()-(int)(Gdx.graphics.getHeight()*0.5)); //** Button location **//
+		returnMenu.setPosition(Gdx.graphics.getWidth()/2 - returnMenu.getWidth()/2,Gdx.graphics.getHeight()-(int)(Gdx.graphics.getHeight()*0.5)-returnMenu.getHeight()); //** Button location **//
       
 	}
 
@@ -173,29 +180,6 @@ public class GUIMultiplayerHOST extends GUIScreen {
 	}
 	 
 	public void checkButtonListeners(){ 
-		/*host.addListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("hostgame1");  
-            	return true;
-            }
-            
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            	System.out.println("hostgame2"); 
-            	//game.switchTo(SkeetPro.State.PLAY_GAME);
-            }
-        });*/
-		
-		/*join.addListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("joingame1");
-                return true;
-            }
-            
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            	System.out.println("joingame2"); 
-            	//FileSaving.LoadGameState("Jogador.cenas");
-            }
-        });*/
 		
 		returnMenu.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -206,6 +190,7 @@ public class GUIMultiplayerHOST extends GUIScreen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("ReturnMenu2"); 
             	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU);
+            	GUIMultiplayerMenu.gameserver.closeServer();
             }
         });
 		

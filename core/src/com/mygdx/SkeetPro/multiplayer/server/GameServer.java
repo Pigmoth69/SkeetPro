@@ -15,28 +15,18 @@ import com.mygdx.SkeetPro.multiplayer.Packets.Packet1LoginAwnser;
 import com.mygdx.SkeetPro.multiplayer.Packets.Packet2Message;
 
 
-public class GameServer implements Runnable{
+public class GameServer{
 	private Server server;
 	private int tcp_port = 54559;
 	private int udp_port = 54779;
 	
 	
 	public GameServer(){
+		
 
 	}
-	 
-	private void registerPackets() {
-		Kryo kryo = server.getKryo();
-		kryo.register(Packets.Packet0LoginRequest.class);
-		kryo.register(Packets.Packet1LoginAwnser.class);
-		kryo.register(Packets.Packet2Message.class);
-		
-		
-	}
-
-
-	@Override
-	public void run() {
+	
+	public void startServer(){
 		server = new Server();
 		registerPackets();
 		server.start(); 
@@ -55,8 +45,26 @@ public class GameServer implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	 
+	private void registerPackets() {
+		Kryo kryo = server.getKryo();
+		kryo.register(Packets.Packet0LoginRequest.class);
+		kryo.register(Packets.Packet1LoginAwnser.class);
+		kryo.register(Packets.Packet2Message.class);
+		
 		
 	}
+	
+	public void closeServer(){
+		server.close();
+	}
+	
+	public Server getServer(){
+		return server;
+	}
+
+
 	
 	
 	

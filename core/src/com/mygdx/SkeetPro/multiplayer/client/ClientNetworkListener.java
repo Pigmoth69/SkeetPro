@@ -46,12 +46,12 @@ public class ClientNetworkListener extends Listener{
 			if(awnser){
 				Log.info("Please enter you first message to the server!");
 				while(true){
-					if(GameClient.scanner.hasNext()){
+					/*if(GameClient.scanner.hasNext()){
 						Packets.Packet2Message mpacket = new Packets.Packet2Message();
 						mpacket.message = GameClient.scanner.nextLine();
 						client.sendTCP(mpacket);
 						Log.info("Please enter another message!");
-					}
+					}*/
 				}
 			}else{
 				connection.close();

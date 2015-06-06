@@ -1,5 +1,8 @@
 package com.mygdx.SkeetPro.multiplayer.server;
 
+import java.util.ArrayList;
+
+import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
@@ -10,7 +13,7 @@ import com.mygdx.SkeetPro.multiplayer.Packets.Packet2Message;
 
 
 public class ServerNetworkListener extends Listener{
-	
+	ArrayList<Client> clients;
 	
 	
 	@Override
