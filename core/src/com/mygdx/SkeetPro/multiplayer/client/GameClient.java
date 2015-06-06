@@ -3,53 +3,28 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Scanner;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.minlog.Log;
+import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.multiplayer.Packets;
 import com.mygdx.SkeetPro.multiplayer.Packets.Packet0LoginRequest;
 import com.mygdx.SkeetPro.multiplayer.Packets.Packet1LoginAwnser;
 import com.mygdx.SkeetPro.multiplayer.Packets.Packet2Message;
 
 
-public class GameClient {
+public class GameClient implements Runnable {
 	public Client client;
-	public static Scanner scanner;
+	public static boolean  isConnected;
+	public boolean notFound;
 	private int tcp_port = 54559; 
 	private int udp_port = 54779;
 	
+	
+	
 	public GameClient(){
-		scanner = new Scanner(System.in);
-		client = new Client();
-		register();
 		
-		ClientNetworkListener nl = new ClientNetworkListener(); 
-		nl.init(client);
-		client.addListener(nl);
-		
-		client.start();
-		
-		InetAddress address = client.discoverHost(udp_port, 5000);
-	    System.out.println(address);
-		try {
-			Log.info("Please enter the specified IP!");
-			client.connect(120000, scanner.nextLine(), tcp_port,udp_port);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace(); 
-			client.stop(); 
-		}
-		
-		while(true){
-			if(!client.isConnected()){
-				try {
-					client.connect(5000, address, tcp_port,udp_port);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
 	}
 	
 	private void register(){
@@ -62,5 +37,38 @@ public class GameClient {
 	public static void main(String[] args){
 		new GameClient();
 		Log.set(Log.LEVEL_DEBUG);
+	}
+	public void disconectClient(){
+		isConnected= false;
+	}
+	public boolean connectClient(String ip){
+		try {
+			client.connect(5000, ip, tcp_port,udp_port);
+			return true;
+		} catch (IOException e) {
+			return false;
+		}
+	}
+	
+	public boolean getFound(){
+		return notFound;
+	}
+
+	@Override
+	public void run() {
+		isConnected =true;
+		notFound=true;
+		client = new Client();
+		register();
+		
+		ClientNetworkListener nl = new ClientNetworkListener(); 
+		nl.init(client);
+		client.addListener(nl); 
+		
+		client.start();
+		
+		while(isConnected){
+		}
+		
 	}
 }

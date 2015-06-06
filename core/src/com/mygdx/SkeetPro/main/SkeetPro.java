@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.SkeetPro.elements.Player;
 import com.mygdx.SkeetPro.files.FileSaving;
 import com.mygdx.SkeetPro.files.SaveClass;
+import com.mygdx.SkeetPro.multiplayer.client.GameClient;
 import com.mygdx.SkeetPro.screens.GUIGame;
 import com.mygdx.SkeetPro.screens.GUIMainMenu;
 import com.mygdx.SkeetPro.screens.GUIMultiplayerHOST;
@@ -27,6 +28,7 @@ public class SkeetPro extends Game {
 	private ArrayList<GUIScreen> menus;
 	private Stack<State> stack;
 	public static SaveClass SaveState;
+	public static GameClient client;
 	
 	public static enum State
 	{
@@ -45,6 +47,10 @@ public class SkeetPro extends Game {
 	@Override
 	public void create () {
 		new Resources();
+		client = new GameClient(); 
+    	Thread myThread = new Thread(client);
+    	myThread.setDaemon(true); // important, otherwise JVM does not exit at end of main()
+    	myThread.start(); 
 		menus = new ArrayList<GUIScreen>();
 		stack = new Stack<State>();
 		menus.add(new GUIMainMenu(this));

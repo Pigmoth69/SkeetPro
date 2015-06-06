@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.mygdx.SkeetPro.elements.Player;
 import com.mygdx.SkeetPro.files.FileSaving;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
@@ -34,10 +35,13 @@ public class GUIMultiplayerMenu extends GUIScreen {
 	private float timepassed=0;
 	int duck_x_right,duck_y_right, duck_x_left,duck_y_left,duckSpeedRight,duckSpeedLeft;
 	public static GameServer gameserver;
+	MyTextInputListener listener;
+	private boolean isConnected=false;
 	
 	public GUIMultiplayerMenu(SkeetPro parent) {
 		super(parent);
 		gameserver = new GameServer();
+		listener = new MyTextInputListener();
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); //** w/h ratio = 1.66 **//
         batch = new SpriteBatch();
@@ -137,14 +141,22 @@ public class GUIMultiplayerMenu extends GUIScreen {
         	duckSpeedLeft = speed;
         }
         	
-        	
+        connectToServer();
         batch.end();
         stage.draw();
 	}
 
+	private void connectToServer() {
+		
+		if(listener.getInputDone() && listener.getNome()!=null){
+			game.client.connectClient(listener.getNome());
+			listener.setInputDone(false);
+			isConnected=false;
+    	}		
+	}
+
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		
 		return false;
 	}
 
@@ -206,8 +218,20 @@ public class GUIMultiplayerMenu extends GUIScreen {
             }
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            	System.out.println("joingame2"); 
-            	//FileSaving.LoadGameState("Jogador.cenas");
+            
+            		isConnected=true;
+    				Gdx.input.getTextInput(listener, "Connect", "Enter the IP adress here: ", null);
+    				
+    				if(listener.getNome()==null){
+    					System.out.println("é nulo!");
+    				}
+    				else{
+    					System.out.println("não é nulo!");
+    				}
+    				
+    			
+            	
+		
             }
         });
 		
