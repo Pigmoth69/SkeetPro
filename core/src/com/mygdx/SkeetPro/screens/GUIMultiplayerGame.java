@@ -1,35 +1,21 @@
 package com.mygdx.SkeetPro.screens;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Timer;
 import java.util.Map.Entry;
+ 
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Input.TextInputListener;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera; 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.SkeetPro.elements.Plate;
 import com.mygdx.SkeetPro.elements.Player;
-import com.mygdx.SkeetPro.files.FileSaving;
 import com.mygdx.SkeetPro.gamestate.GameState;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
-import com.badlogic.*;
 
 public class GUIMultiplayerGame extends GUIScreen {
 	private  SpriteBatch batch;
@@ -37,9 +23,11 @@ public class GUIMultiplayerGame extends GUIScreen {
 	private GameState gamestate;
 	private Player p1;
 	private float time;
+	private float time2;
 	private boolean firstNameInput = true;
 	MyTextInputListener listener;
-	private int limitFailedPlates = 1;
+	private int limitFailedPlates = 3;
+	private float timepassed = 0;
 	
 	public GUIMultiplayerGame(SkeetPro parent) {
 		super(parent);
@@ -48,10 +36,10 @@ public class GUIMultiplayerGame extends GUIScreen {
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Resources.plateSprite.setSize((float)(Gdx.graphics.getWidth()*0.13),(float)(Gdx.graphics.getHeight()*0.23));
-        p1 = new Player("Daniel", 0);
+        p1 = new Player("unkown", 0);
         gamestate = new GameState(p1);
         time = 0;
-		
+		time2 = 0;
 		listener = new MyTextInputListener();
 		
 		
@@ -69,7 +57,7 @@ public class GUIMultiplayerGame extends GUIScreen {
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		batch.setProjectionMatrix(camera.combined);
 		Sprite sp = new Sprite(Resources.plateTexture);
-		
+		timepassed+=Gdx.graphics.getDeltaTime();
 		batch.begin();
 		batch.draw(Resources.gameBackground, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		Resources.scoreFont.draw(batch, "Score: "+ p1.getScore(), 0, Gdx.graphics.getHeight());
@@ -78,14 +66,22 @@ public class GUIMultiplayerGame extends GUIScreen {
 		drawPlates();
 			
 		gamestate.manageReload(delta);
-			
 		drawShells();
+		drawDucks();
 		batch.end();
-	
+		gamestate.updateDucks();
+		gamestate.checkDuckCollisionWithScope();
+		if(time2 > 3){
+			gamestate.createDucks(delta);
+			time2=0;
+		}
+		else
+			time2+=delta;
+		
 		if(!(gamestate.getFailPlates()>= limitFailedPlates)){
 			gamestate.movePlates(delta);	
 			
-			if(time > 1){
+			if(time > 1.2){
 				gamestate.createPlate(delta);
 				time = 0;
 			}
@@ -97,7 +93,7 @@ public class GUIMultiplayerGame extends GUIScreen {
 		}
 
 		
-		if(gamestate.getFailPlates()>= limitFailedPlates){
+		if(gamestate.getFailPlates()>= limitFailedPlates || gamestate.getDuckShoot()){
 			String nome;
 			
 			if(firstNameInput){
@@ -145,8 +141,6 @@ public class GUIMultiplayerGame extends GUIScreen {
 				break;
 			default:
 			}
-			
-	
 			gamestate.resetScope();
 		}
 		
@@ -223,10 +217,21 @@ public class GUIMultiplayerGame extends GUIScreen {
 			batch.draw(Resources.plateSprite, (float)p.getX(), (float)p.getY(), p.getWidth(), p.getHeight());
 		}
 	}
-	
+
+	private void drawDucks(){ 
+			for(int i = 0; i < gamestate.getDucks().size();i++){
+				if(gamestate.getDucks().get(i).getDirection()==1){
+					batch.draw(Resources.duckAnimationRight.getKeyFrame(timepassed,true),(float)gamestate.getDucks().get(i).getX(),(float)gamestate.getDucks().get(i).getY());
+				}else
+					batch.draw(Resources.duckAnimationLeft.getKeyFrame(timepassed,true),(float)gamestate.getDucks().get(i).getX(),(float)gamestate.getDucks().get(i).getY());
+			}
+
+	}
+
 	private void reset(){
 		Resources.plateSprite.setSize((float)(Gdx.graphics.getWidth()*0.13),(float)(Gdx.graphics.getHeight()*0.23));
 		gamestate.reset();
 		p1.resetScore();
+		timepassed = 0;
 	}
 }

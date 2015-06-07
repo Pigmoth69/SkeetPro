@@ -2,6 +2,7 @@ package com.mygdx.SkeetPro.screens;
 
 import java.util.Random;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
@@ -65,13 +66,6 @@ public class GUIMainMenu extends GUIScreen {
         stage.addActor(options);
         stage.addActor(exit);
         stage.addActor(soundButton);
-        
-        
-        Resources.duckAtlasRight = new TextureAtlas(Gdx.files.internal("duckAnimationRigth.atlas")); 
-        Resources.duckAnimationRight = new Animation(1/8f,Resources.duckAtlasRight.getRegions());
-        
-        Resources.duckAtlasLeft = new TextureAtlas(Gdx.files.internal("duckAnimationLeft.atlas")); 
-        Resources.duckAnimationLeft = new Animation(1/8f,Resources.duckAtlasLeft.getRegions());
         
         duck_x_right=0;
         duck_y_right=(int) (Gdx.graphics.getHeight()*0.75);
@@ -287,4 +281,5 @@ public class GUIMainMenu extends GUIScreen {
             }
         });
 	}
+	
 }

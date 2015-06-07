@@ -24,6 +24,8 @@ import com.mygdx.SkeetPro.elements.Player;
 import com.mygdx.SkeetPro.files.FileSaving;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
+import com.mygdx.SkeetPro.multiplayer.Packets;
+import com.mygdx.SkeetPro.multiplayer.client.ClientNetworkListener;
 import com.mygdx.SkeetPro.multiplayer.server.GameServer;
 
 public class GUIMultiplayerMenu extends GUIScreen {
@@ -37,6 +39,7 @@ public class GUIMultiplayerMenu extends GUIScreen {
 	public static GameServer gameserver;
 	MyTextInputListener listener;
 	private boolean isConnected=false;
+	public static boolean isHost=false;
 	
 	public GUIMultiplayerMenu(SkeetPro parent) {
 		super(parent);
@@ -79,7 +82,7 @@ public class GUIMultiplayerMenu extends GUIScreen {
 	@Override
 	public void show() {
 		
-		
+		isHost=false;
      //   stage.clear();
 		
         
@@ -140,8 +143,9 @@ public class GUIMultiplayerMenu extends GUIScreen {
         	duck_y_left = height;
         	duckSpeedLeft = speed;
         }
-        	
+        
         connectToServer();
+        
         batch.end();
         stage.draw();
 	}
@@ -150,6 +154,13 @@ public class GUIMultiplayerMenu extends GUIScreen {
 		
 		if(listener.getInputDone() && listener.getNome()!=null){
 			game.client.connectClient(listener.getNome());
+			if(game.client.isConnected){
+				game.client.isConnected=false;
+				ClientNetworkListener.client.sendTCP(new Packets.PacketStartGame());
+				
+				//game.switchTo(SkeetPro.State.MULTIPLAYER_WAITING);
+			}
+			System.out.println("entrou no connectToServer!");
 			listener.setInputDone(false);
 			isConnected=false;
     	}		
@@ -206,7 +217,15 @@ public class GUIMultiplayerMenu extends GUIScreen {
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("hostgame2"); 
+            	isHost=true;
             	gameserver.startServer();
+            	if(Packets.IP == null){
+        			Packets.IP = "Please connect to a wifi internet!";
+        		}else{
+        			System.out.println("Connectou!");
+        			
+        			game.client.connectClient("localhost");
+        		}
             	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU_HOST);
             }
         });
@@ -218,7 +237,7 @@ public class GUIMultiplayerMenu extends GUIScreen {
             }
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            
+            	System.out.println("joingame2");
             		isConnected=true;
     				Gdx.input.getTextInput(listener, "Connect", "Enter the IP adress here: ", null);
     				
@@ -228,10 +247,7 @@ public class GUIMultiplayerMenu extends GUIScreen {
     				else{
     					System.out.println("não é nulo!");
     				}
-    				
-    			
-            	
-		
+						
             }
         });
 		

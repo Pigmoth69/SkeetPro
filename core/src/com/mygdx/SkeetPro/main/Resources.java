@@ -25,6 +25,7 @@ public class Resources {
 	public static Texture plateTexture;
 	public static ArrayList<Texture> shells;
 	public static Texture splashTexture;
+	public static Texture waitingBackground;
 	
 	//TextureAtlas
 	public static TextureAtlas buttonsAtlas,soundButtonAtlas,ipSkinAtlas;
@@ -93,6 +94,7 @@ public class Resources {
 	
 	private void loadTextures(){
 		background = new Texture(Gdx.files.internal("forest.png"));
+		waitingBackground = new Texture(Gdx.files.internal("waitingBackground.png"));
 		shells = new ArrayList<Texture>();
 		shells.add(new Texture(Gdx.files.internal("shell0.png")));
 		shells.add(new Texture(Gdx.files.internal("shell1.png")));

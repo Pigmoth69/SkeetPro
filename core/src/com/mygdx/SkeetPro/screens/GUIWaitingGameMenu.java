@@ -22,35 +22,21 @@ import com.mygdx.SkeetPro.multiplayer.Packets;
 import com.mygdx.SkeetPro.multiplayer.server.GameServer;
 import com.mygdx.SkeetPro.multiplayer.server.ServerNetworkListener;
 
-public class GUIMultiplayerHOST extends GUIScreen {
+public class GUIWaitingGameMenu extends GUIScreen {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Stage stage;
-	private TextButton IPadress,returnMenu; 
 	private float timepassed=0; 
+	private float timeToStart = 0;
 	int duck_x_right,duck_y_right, duck_x_left,duck_y_left,duckSpeedRight,duckSpeedLeft;
 
 	
-	public GUIMultiplayerHOST(SkeetPro parent) {
+	public GUIWaitingGameMenu(SkeetPro parent) {
 		super(parent);
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); //** w/h ratio = 1.66 **//
         batch = new SpriteBatch();
         stage = new Stage();        //** window is stage **//
-        
-        IPadress = new TextButton( null, Resources.style2); //** Button text and style **//7;
-
-        
-        returnMenu= new TextButton("Return", Resources.style); //** Button text and style **//
-
-        
-        IPadress.setSize(640, 200);
-        returnMenu.setSize(400, 100);           
-        
-        stage.addActor(IPadress);
-        stage.addActor(returnMenu);
-     
-       
         duck_x_right=0;
         duck_y_right=(int) (Gdx.graphics.getHeight()*0.75);
         duckSpeedRight = 5;
@@ -58,46 +44,14 @@ public class GUIMultiplayerHOST extends GUIScreen {
         
         duck_x_left = Gdx.graphics.getWidth();
         duck_y_left=(int) (Gdx.graphics.getHeight()*0.50);
-        duckSpeedLeft = 4;
-        
-        
-
-        checkButtonListeners();
-        
-        
-        
+        duckSpeedLeft = 4;  
 	}
 
 	@Override
 	public void show() {
-		IPadress.setText("IP: "+Packets.IP);
-		//   stage.clear();*/
-
-		
-        
-        
-        Gdx.input.setInputProcessor(stage); //** stage is responsive **//
-
-        //modificar isto!
-       
-        
-        
-        
-        
-        
-        refreshButtonsPosition();      
-        
-        
-        
-        
 		
 	}
 
-	private void refreshButtonsPosition() {
-		IPadress.setPosition(Gdx.graphics.getWidth()/2 - IPadress.getWidth()/2, Gdx.graphics.getHeight()-(int)(Gdx.graphics.getHeight()*0.5)); //** Button location **//
-		returnMenu.setPosition(Gdx.graphics.getWidth()/2 - returnMenu.getWidth()/2,Gdx.graphics.getHeight()-(int)(Gdx.graphics.getHeight()*0.5)-returnMenu.getHeight()); //** Button location **//
-      
-	}
 
 	@Override
 	public void render(float delta) {
@@ -107,9 +61,9 @@ public class GUIMultiplayerHOST extends GUIScreen {
         stage.act();
         timepassed+=Gdx.graphics.getDeltaTime();
         batch.setProjectionMatrix(camera.combined);
-        
+        timeToStart+=delta;
         batch.begin();
-        batch.draw(Resources.background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.draw(Resources.waitingBackground, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         
         batch.draw(Resources.duckAnimationRight.getKeyFrame(timepassed,true),duck_x_right,duck_y_right);
         batch.draw(Resources.duckAnimationLeft.getKeyFrame(timepassed,true),duck_x_left,duck_y_left);
@@ -136,26 +90,26 @@ public class GUIMultiplayerHOST extends GUIScreen {
         	
         batch.end();
         stage.draw();
-        startWait();
-        
+        startGame();
+
 	}
 
-	private void startWait() {
-		if(ServerNetworkListener.clients.size()==2){
-			game.switchTo(SkeetPro.State.MULTIPLAYER_WAITING);
+	private void startGame() {
+		if(timeToStart > 5){
+			game.switchTo(SkeetPro.State.MAIN_MENU); // onde começa o multiplayer
+			timeToStart=0;
 		}
-
 	}
+
+
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		
 		return false;
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		refreshButtonsPosition();
 	    stage.getViewport().update(width, height, true);
 	    TextureRegion[] texturas = Resources.duckAnimationRight.getKeyFrames();
 	    TextureRegion tex = texturas[0];
@@ -180,22 +134,4 @@ public class GUIMultiplayerHOST extends GUIScreen {
 
 	}
 	 
-	public void checkButtonListeners(){ 
-		 
-		returnMenu.addListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("returnMenu1");  
-            	return true;
-            }
-            
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            	System.out.println("ReturnMenu2"); 
-            	GUIMultiplayerMenu.gameserver.closeServer();
-            	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU);
-            	
-            }
-        });
-		
-	}
-
 }

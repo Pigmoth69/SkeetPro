@@ -3,13 +3,11 @@ package com.mygdx.SkeetPro.main;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import com.badlogic.gdx.ApplicationAdapter;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import com.mygdx.SkeetPro.elements.Player;
 import com.mygdx.SkeetPro.files.FileSaving;
 import com.mygdx.SkeetPro.files.SaveClass;
@@ -21,6 +19,7 @@ import com.mygdx.SkeetPro.screens.GUIMultiplayerMenu;
 import com.mygdx.SkeetPro.screens.GUIScore;
 import com.mygdx.SkeetPro.screens.GUIScreen;
 import com.mygdx.SkeetPro.screens.GUISplash;
+import com.mygdx.SkeetPro.screens.GUIWaitingGameMenu;
 
 public class SkeetPro extends Game { 
 
@@ -37,7 +36,8 @@ public class SkeetPro extends Game {
 		SPLASH,
 		SCORE,
 		MULTIPLAYER_MENU,
-		MULTIPLAYER_MENU_HOST
+		MULTIPLAYER_MENU_HOST,
+		MULTIPLAYER_WAITING
 	};
 	
 	protected void switchScreen(Screen scr){
@@ -59,6 +59,7 @@ public class SkeetPro extends Game {
 		menus.add(new GUIScore(this));
 		menus.add(new GUIMultiplayerMenu(this));
 		menus.add(new GUIMultiplayerHOST(this));
+		menus.add(new GUIWaitingGameMenu(this));
 		SaveState = FileSaving.LoadGameState("Jogador.cenas");
 		if (SaveState == null){
 			System.out.println("iniciar saveState"); 
@@ -95,6 +96,9 @@ public class SkeetPro extends Game {
 		case MULTIPLAYER_MENU_HOST:
 			current = menus.get(5);
 			break;
+		case MULTIPLAYER_WAITING:
+			current = menus.get(6);
+			break;
 		}
 		
 		stack.push(st);
@@ -130,5 +134,6 @@ public class SkeetPro extends Game {
 	public static void SaveScore(Player p1){
 		SaveState = FileSaving.SaveScores("Jogador.cenas", p1);
 	}
+	
 
 }

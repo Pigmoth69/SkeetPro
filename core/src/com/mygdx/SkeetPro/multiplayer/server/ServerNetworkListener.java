@@ -7,25 +7,27 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
 import com.mygdx.SkeetPro.multiplayer.Packets;
-import com.mygdx.SkeetPro.multiplayer.Packets.Packet0LoginRequest;
-import com.mygdx.SkeetPro.multiplayer.Packets.Packet1LoginAwnser;
-import com.mygdx.SkeetPro.multiplayer.Packets.Packet2Message;
 
 
 public class ServerNetworkListener extends Listener{
-	ArrayList<Client> clients;
+	public static ArrayList<Connection> clients = new ArrayList<Connection>();
 	
 	
 	@Override
 	public void connected(Connection connection) {
 		Log.info("[SERVER]Someone has connect!");
+		clients.add(connection);
+		
+		System.out.println("COnnectiones: "+ clients.size());
+		if(clients.size()>2)
+			connection.close();
 		
 	}
-	
-	
+
 	@Override
 	public void disconnected(Connection connection) {
 		Log.info("[SERVER]Someone has disconnect!");
+		clients.remove(connection);
 		
 	}
 	
@@ -36,16 +38,19 @@ public class ServerNetworkListener extends Listener{
 	@Override
 	public void received(Connection connection, Object object) {
 		
-		if(object instanceof Packets.Packet0LoginRequest){
-			Packets.Packet1LoginAwnser loginAwnser = new Packets.Packet1LoginAwnser();
-			loginAwnser.accepted = true;
-			connection.sendTCP(loginAwnser);
+		if(object instanceof Packets.PacketClientLogin){
+			connection.sendTCP(new Packets.PacketClientLogin());
 		}
 		
-		if(object instanceof Packets.Packet1LoginAwnser){
-			String message = ((Packets.Packet2Message)object).message;
-			Log.info(message);
+		if(object instanceof Packets.PacketStartGame){
+			connection.sendTCP(new Packets.PacketStartGame());
 		}
 		
+	}
+	
+	public void resetConnections(){
+		for(int i = 0; i < clients.size();i++){
+			clients.get(i).close();
+		}
 	}
 }

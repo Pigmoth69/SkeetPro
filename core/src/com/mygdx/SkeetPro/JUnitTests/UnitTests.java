@@ -18,7 +18,7 @@ public class UnitTests {
 	@Test
 	public void testPlateMov(){
 		g = new GameState(new Player("test", 0));
-		g.addPLate(100, 100, 100, 500, 2);
+		g.addPlate(100, 100, 100, 500, 2);
 		g.createPlate(0);
 
 		assertEquals(g.getPlates().size(), 2);
@@ -34,8 +34,8 @@ public class UnitTests {
 	@Test
 	public void ShotPlate(){
 		g = new GameState(new Player("test", 0));
-		g.addPLate(100, 100, 100, 500, 2);
-		g.addPLate(100, 100, 200, 800, 2);
+		g.addPlate(100, 100, 100, 500, 2);
+		g.addPlate(100, 100, 200, 800, 2);
 
 		g.resetScope();
 		g.setScope(600, 400);

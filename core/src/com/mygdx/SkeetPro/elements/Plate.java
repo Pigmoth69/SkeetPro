@@ -11,8 +11,8 @@ public class Plate extends Element{
 	double speed;
 	int direction; // 0 ou 1 : se 0 vai para a -> se 1 <-
 	double K;
-	private int Wwidth = 1280;
-	private int Wheight = 720;
+	private int Wwidth = Gdx.graphics.getWidth();
+	private int Wheight = Gdx.graphics.getHeight();
 	
 
 	public Plate(float width,float height,int initialPoint,int finalPoint,double speed){
@@ -72,9 +72,4 @@ public class Plate extends Element{
 	public double getSpeed(){
 		return speed;
 	}
-
-	
-	
-	
-
 }

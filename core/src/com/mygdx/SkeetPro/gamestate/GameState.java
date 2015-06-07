@@ -4,12 +4,14 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.Gdx;  
+import com.mygdx.SkeetPro.elements.Duck;
 import com.mygdx.SkeetPro.elements.Plate;
 import com.mygdx.SkeetPro.elements.Player;
 import com.mygdx.SkeetPro.elements.Scope;
 
 public class GameState {
 	private HashMap<Integer,Plate> plates;
+	private ArrayList<Duck> ducks;
 	private Player player1,player2;
 	private Scope scope;
 	private int failPlates; 
@@ -18,19 +20,29 @@ public class GameState {
 	private float reload_time;
 	private boolean is_reloading;
 	private int plateID=0;
-	private int Wwidth = 1280;
-	private int Wheight = 720;
+	private boolean shootDuck = false;
 	     
 	public GameState(Player player1){
 		this.player1= player1;
 		this.player2 = null;
 		plates = new HashMap<Integer,Plate>();
+		ducks = new ArrayList<Duck>();
 		scope = new Scope();
 		failPlates=0;
 		bullets = 4;
         reload_time = 0;
         is_reloading = false;
 		//createPlate(0);
+	}
+/*public Duck(float width,float height,int initialPoint,int direction,double speed){*/
+	public void createDucks(float delta){
+		Random rand = new Random();
+		int width =152;
+		int height = 95;
+		int direction = rand.nextInt(2)+0;
+		int initialPoint = rand.nextInt((int) (Gdx.graphics.getHeight()*0.85)) + 0;
+		double speed =Gdx.graphics.getWidth()*0.003;
+		ducks.add(new Duck(width,height,initialPoint,direction,speed));
 	}
 
 	public void createPlate(float delta){
@@ -39,20 +51,20 @@ public class GameState {
 		int initialPoint= 0;
 		int finalPoint=0;
 
-		int width =(int) (Wwidth*0.13) ;
-		int height = (int) (Wheight*0.23);
+		int width =(int) (Gdx.graphics.getWidth()*0.13) ;
+		int height = (int) (Gdx.graphics.getHeight()*0.23);
 		
 		do{
-			initialPoint = rand.nextInt(Wwidth+1-width);
-			finalPoint = rand.nextInt(Wwidth+1-width);
+			initialPoint = rand.nextInt(Gdx.graphics.getWidth()+1-width);
+			finalPoint = rand.nextInt(Gdx.graphics.getWidth()+1-width);
 		}while(initialPoint == finalPoint );
 
 		
 		double speed = Math.abs((finalPoint-initialPoint)/(float)(rand.nextInt(256)+ 128) /*(double)stage.getStageSpeed()*/);
-		addPLate(width,height,initialPoint,finalPoint,speed);
+		addPlate(width,height,initialPoint,finalPoint,speed);
 	}
 	
-	public void addPLate(int width, int height, int initialPoint, int finalPoint, double speed){
+	public void addPlate(int width, int height, int initialPoint, int finalPoint, double speed){
 		plates.put(plateID++, new Plate(width,height,initialPoint,finalPoint,speed));
 	}
 
@@ -75,13 +87,6 @@ public class GameState {
 		plate.setY(function(plate));
 		plate.setWidth(plate.getWidth()*(1-delta*0.35f));
 		plate.setHeight(plate.getHeight()*(1-delta*0.35f));
-		/*System.out.println("Plate: -------------------------------------");
-		System.out.println("X: "+plate.getX());
-		System.out.println("Y: "+plate.getY());
-		System.out.println("initialPoint: "+ plate.getInitialPoint());
-		System.out.println("finallPoint: "+ plate.getFinalPoint());
-		System.out.println("speed: "+ plate.getSpeed());
-		System.out.println("K: "+ plate.getK());*/
 	}
 	
 	private int checkPlatesCollisionWithScope(){
@@ -94,6 +99,17 @@ public class GameState {
 		}
 		return numOfBrokenPlates;
 	}
+	
+	public boolean checkDuckCollisionWithScope(){
+		for(int i = 0; i < ducks.size();i++){
+			if(scope.getX() >= ducks.get(i).getX() && scope.getX() <=ducks.get(i).getX()+ducks.get(i).getWidth() && scope.getY()>= ducks.get(i).getY() && scope.getY() <= ducks.get(i).getY()+ducks.get(i).getHeight()){
+				shootDuck=true;
+				ducks.get(i).setStatus('B');
+				return true;
+			}
+		}
+	return false;
+}
 	
 	private ArrayList<Integer> removeBrokenPlates(){
 
@@ -229,17 +245,63 @@ public class GameState {
 		this.player1= p1;
 		this.player2 = null;
 		plates = new HashMap<Integer,Plate>();
+		ducks = new ArrayList<Duck>();
 		scope = new Scope();
 		failPlates=0;
 		bullets = 4;
         reload_time = 0;
         is_reloading = false;
+        shootDuck = false;
 		//createPlate(0);
+	}
+	
+	public void updateDucks(){
+		moveDucks();
+		removeDucks();
+	}
+	
+
+	private void removeDucks() {
+		ArrayList<Duck> d = new ArrayList<Duck>();
+		
+		
+		for(int i = 0; i < ducks.size(); i++){
+			if(ducks.get(i).getDirection() == 1){
+				if(ducks.get(i).getX() > Gdx.graphics.getWidth()){
+					ducks.get(i).setStatus('B');
+				}
+			}
+			else{
+				if(ducks.get(i).getX() < -ducks.get(i).getWidth()){
+					ducks.get(i).setStatus('B');
+				}
+			}
+		}
+		for(int i = 0; i < ducks.size();i++){
+			if(ducks.get(i).getStatus() != 'B')
+				d.add(ducks.get(i));
+		}
+		ducks = d;	
+	}
+	public void moveDucks() {
+		for(int i = 0; i < ducks.size();i++){
+			ducks.get(i).move();
+		}
+		
 	}
 
 	public Player getPlayer1() {
 		return player1;
 	}
+	
+	public boolean getDuckShoot(){
+		return shootDuck;
+	}
+	public ArrayList<Duck> getDucks(){
+		return ducks;
+	}
+	
+	
 
 }
 

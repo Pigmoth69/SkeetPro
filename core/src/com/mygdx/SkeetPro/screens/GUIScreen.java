@@ -6,7 +6,7 @@ import com.mygdx.SkeetPro.main.SkeetPro;
 
 public abstract class GUIScreen implements Screen,InputProcessor{
 
-	protected SkeetPro game;
+	public static SkeetPro game;
 	
 	GUIScreen(SkeetPro game){
 		this.game = game;
