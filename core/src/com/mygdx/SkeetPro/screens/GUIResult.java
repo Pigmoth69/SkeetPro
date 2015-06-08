@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
 import com.mygdx.SkeetPro.multiplayer.client.ClientNetworkListener;
+import com.mygdx.SkeetPro.multiplayer.server.ServerNetworkListener;
 
 public class GUIResult extends GUIScreen {
 	private OrthographicCamera camera;
@@ -183,8 +184,11 @@ public class GUIResult extends GUIScreen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("ReturnMenu2"); 
             	GUIMultiplayerGame.gamestate.reset();
-            	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU);
             	ClientNetworkListener.client.close();
+            	SkeetPro.gameserver.closeServer();
+            	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU);
+            	
+            	/*ServerNetworkListener.resetConnections();*/
             }
         });
 		

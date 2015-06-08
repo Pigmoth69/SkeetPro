@@ -13,6 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
+import com.mygdx.SkeetPro.multiplayer.Packets;
+import com.mygdx.SkeetPro.multiplayer.client.ClientNetworkListener;
+import com.mygdx.SkeetPro.multiplayer.client.GameClient;
 
 public class GUIMainMenu extends GUIScreen {
 
@@ -212,7 +215,12 @@ public class GUIMainMenu extends GUIScreen {
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("multiplayer2");
+            	
+            	if(Packets.IP!=null){
             	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU);
+            	}
+            	
+            	SkeetPro.gameserver.refreshIP();
             }
         });
 		

@@ -54,7 +54,7 @@ public class SkeetPro extends Game {
 		new Resources();
 		client = new GameClient(); 
 		gameserver = new GameServer();
-		gameserver.startServer();
+		/*gameserver.startServer();*/
     	Thread myThread = new Thread(client);
     	myThread.setDaemon(true); // important, otherwise JVM does not exit at end of main()
     	myThread.start(); 

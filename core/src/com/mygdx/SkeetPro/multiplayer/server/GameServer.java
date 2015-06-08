@@ -57,6 +57,26 @@ public class GameServer{
 
 		
 	}
+	
+	public void refreshIP(){
+		StringBuilder IFCONFIG=new StringBuilder();
+		try {
+	        for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+	            NetworkInterface intf = en.nextElement();
+	            for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+	                InetAddress inetAddress = enumIpAddr.nextElement();
+	                if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress() && inetAddress.isSiteLocalAddress()) {
+	                IFCONFIG.append(inetAddress.getHostAddress().toString()+"\n");
+	                }
+
+	            }
+	        }
+	        Packets.IP = IFCONFIG.toString();
+	        System.out.println("O PACOTE: "+Packets.IP);
+	    } catch (SocketException ex) {
+	        ex.printStackTrace();
+	    }
+	}
 	 
 
 	private void registerPackets() {
@@ -67,6 +87,10 @@ public class GameServer{
 		kryo.register(Packets.PacketStartGame.class);
 		kryo.register(Packets.PacketKeepAlive.class);
 		kryo.register(Packets.PacketPlayerWon.class);
+		kryo.register(Packets.PacketCanPlay.class);
+		kryo.register(Packets.PakcetResetConnection.class);
+		
+		
 		
 	}
 	

@@ -30,8 +30,8 @@ public class GameClient implements Runnable {
 		kryo.register(Packets.PacketStartGame.class);
 		kryo.register(Packets.PacketKeepAlive.class);
 		kryo.register(Packets.PacketPlayerWon.class);
-		
-
+		kryo.register(Packets.PacketCanPlay.class);
+		kryo.register(Packets.PakcetResetConnection.class);
 	}
 	
 	public static void main(String[] args){
@@ -39,7 +39,7 @@ public class GameClient implements Runnable {
 		Log.set(Log.LEVEL_DEBUG);
 	}
 	public void disconectClient(){
-		isConnected= false;
+		client.close();
 	}
 	public boolean connectClient(String ip){
 		System.out.println("entrou no connect client0");
@@ -70,7 +70,7 @@ public class GameClient implements Runnable {
 		client.addListener(nl); 
 		
 		client.start();
-		
+
 		while(isConnected){
 		}
 		

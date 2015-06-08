@@ -19,7 +19,6 @@ import com.mygdx.SkeetPro.multiplayer.client.ClientNetworkListener;
 import com.mygdx.SkeetPro.multiplayer.client.GameClient;
 
 public class GUIMultiplayerMenu extends GUIScreen {
-
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Stage stage;
@@ -27,7 +26,6 @@ public class GUIMultiplayerMenu extends GUIScreen {
 	private float timepassed=0;
 	int duck_x_right,duck_y_right, duck_x_left,duck_y_left,duckSpeedRight,duckSpeedLeft;
 	MyTextInputListener listener;
-	public static boolean isHost=false;
 	
 	public GUIMultiplayerMenu(SkeetPro parent) {
 		super(parent);
@@ -69,7 +67,6 @@ public class GUIMultiplayerMenu extends GUIScreen {
 	@Override
 	public void show() {
 		
-		isHost=false;
      //   stage.clear();
 		
         
@@ -141,15 +138,15 @@ public class GUIMultiplayerMenu extends GUIScreen {
 		
 		if(listener.getInputDone() && listener.getNome()!=null){
 			SkeetPro.client.connectClient(listener.getNome());
+			listener.setNome(null);
 			if(GameClient.isConnected){
 				GameClient.isConnected=false;
 				ClientNetworkListener.client.sendTCP(new Packets.PacketStartGame());
-				
-				//game.switchTo(SkeetPro.State.MULTIPLAYER_WAITING);
 			}
 			System.out.println("entrou no connectToServer!");
 			listener.setInputDone(false);
-    	}		
+		}
+		
 	}
 
 	@Override
@@ -202,8 +199,8 @@ public class GUIMultiplayerMenu extends GUIScreen {
             }
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            	SkeetPro.gameserver.startServer();
             	System.out.println("hostgame2"); 
-            	isHost=true;
             	if(Packets.IP == null){
         			Packets.IP = "Please connect to a wifi internet!";
         		}else{

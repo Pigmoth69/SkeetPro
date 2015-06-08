@@ -6,6 +6,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
 import com.mygdx.SkeetPro.multiplayer.Packets;
+import com.mygdx.SkeetPro.screens.GUIMultiplayerMenu;
 
 
 public class ServerNetworkListener extends Listener{
@@ -48,14 +49,13 @@ public class ServerNetworkListener extends Listener{
 		}
 		if(object instanceof Packets.PacketPlayerLost){
 			if(connection.equals(clients.get(0))){
-				connection.sendTCP(new Packets.PacketPlayerWon());			
-				clients.get(1).sendTCP(new Packets.PacketPlayerLost());
+				connection.sendTCP(new Packets.PacketPlayerLost());			
+				clients.get(1).sendTCP(new Packets.PacketPlayerWon());
 			}
 			else{
-				connection.sendTCP(new Packets.PacketPlayerWon());
-				clients.get(0).sendTCP(new Packets.PacketPlayerLost());
+				connection.sendTCP(new Packets.PacketPlayerLost());
+				clients.get(0).sendTCP(new Packets.PacketPlayerWon());
 			}
-			/*resetConnections();	*/
 			
 		}
 		if(object instanceof Packets.PacketSendDuck){
@@ -67,10 +67,19 @@ public class ServerNetworkListener extends Listener{
 				clients.get(0).sendTCP(new Packets.PacketSendDuck());
 			}
 		}
+		if(object instanceof Packets.PacketCanPlay){
+			System.out.println("Estou a alteraar!!");
+			Packets.PacketCanPlay p = new Packets.PacketCanPlay();
+			p.num=1;
+			connection.sendTCP(p);
+		}
+		if(object instanceof Packets.PakcetResetConnection){
+			resetConnections();
+		}
 		
 	}
 	
-	public void resetConnections(){
+	public static void resetConnections(){
 		for(int i = 0; i < clients.size();i++){
 			clients.get(i).close();
 		}

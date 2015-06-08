@@ -3,6 +3,8 @@ package com.mygdx.SkeetPro.screens;
 import java.util.HashMap;
 import java.util.Map.Entry;
  
+
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,6 +18,8 @@ import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
 import com.mygdx.SkeetPro.multiplayer.Packets;
 import com.mygdx.SkeetPro.multiplayer.client.ClientNetworkListener;
+import com.mygdx.SkeetPro.multiplayer.server.GameServer;
+import com.mygdx.SkeetPro.multiplayer.server.ServerNetworkListener;
 
 public class GUIMultiplayerGame extends GUIScreen {
 	private  SpriteBatch batch;
@@ -94,6 +98,7 @@ public class GUIMultiplayerGame extends GUIScreen {
 		
 		if(gamestate.getFailPlates()>= limitFailedPlates || gamestate.getDuckShoot()){
 			//ele perde aqui
+			Packets.IP = null;
 			ClientNetworkListener.client.sendTCP(new Packets.PacketPlayerLost());
 	
 		}
