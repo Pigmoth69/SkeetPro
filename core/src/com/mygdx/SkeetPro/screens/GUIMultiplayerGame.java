@@ -63,9 +63,9 @@ public class GUIMultiplayerGame extends GUIScreen {
 		timepassed+=Gdx.graphics.getDeltaTime();
 		batch.begin();
 		batch.draw(Resources.gameBackground, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-		Resources.scoreFont.draw(batch, "Score: "+ p1.getScore(), 0, Gdx.graphics.getHeight());
-		Resources.scoreFont.draw(batch, "Failed Plates: "+ gamestate.getFailPlates(), 0, Gdx.graphics.getHeight()-2*Resources.scoreFont.getCapHeight()-2*10);
-		Resources.scoreFont.draw(batch, "BestScore: "+ gamestate.getBestscore(), 0, Gdx.graphics.getHeight()-Resources.scoreFont.getCapHeight()-10);
+		Resources.white.draw(batch, "Score: "+ p1.getScore(), 0, Gdx.graphics.getHeight());
+		Resources.white.draw(batch, "Failed Plates: "+ gamestate.getFailPlates(), 0, Gdx.graphics.getHeight()-2*Resources.white.getCapHeight()-2*10);
+		Resources.white.draw(batch, "BestScore: "+ gamestate.getBestscore(), 0, Gdx.graphics.getHeight()-Resources.white.getCapHeight()-10);
 		drawPlates();
 			
 		gamestate.manageReload(delta);

@@ -53,9 +53,9 @@ public class GUIMultiplayerMenu extends GUIScreen {
         returnMenu= new TextButton("Return", Resources.style); //** Button text and style **//
 
         
-        host.setSize(400, 100);
-        join.setSize(400, 100);
-        returnMenu.setSize(400, 100);           
+        host.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));
+        join.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));
+        returnMenu.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));          
         
         stage.addActor(host);
         stage.addActor(join);

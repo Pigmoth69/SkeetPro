@@ -13,12 +13,14 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 
 public class Resources {
+	
 	// Textures
 	public static Texture background;
 	public static Texture gameBackground;
@@ -33,8 +35,7 @@ public class Resources {
 	public static TextureAtlas duckAtlasLeft;
 	
 	//BitmapFont
-	public static BitmapFont white,black;
-	public static BitmapFont scoreFont;
+	public static BitmapFont white;
 	
 	//Music
 	public static Music music;
@@ -127,21 +128,24 @@ public class Resources {
         ipSkin = new Skin();
 	}
 	private void loadBitmapFont(){
-		white = new BitmapFont(Gdx.files.internal("teste.fnt"),false); //** font
-        scoreFont = new BitmapFont(Gdx.files.internal("scoreFont.fnt"));
+		white = new BitmapFont();
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("scoreFont.ttf"));
+		white = generator.generateFont((int)(Gdx.graphics.getWidth()*0.02));
+		generator.dispose();
+        
 	}
 	private void loadTextButtonStyles(){
 		style = new TextButtonStyle(); //** Button properties **//
 		style2 = new TextButtonStyle();
 		soundButtonStyle = new TextButtonStyle(); //** Button properties **//
-		style.up = buttonSkin.getDrawable("ButtonON");
-        style.down = buttonSkin.getDrawable("ButtonOFF");
+		style.up = buttonSkin.getDrawable("ButtonOFF");
+        style.down = buttonSkin.getDrawable("ButtonON");
         style2.up = ipSkin.getDrawable("ipLabel");
         style2.down = ipSkin.getDrawable("ipLabel");
         soundButtonStyle.up = soundButtonSkin.getDrawable("soundON");
         soundButtonStyle.down = soundButtonSkin.getDrawable("soundOFF");
         style.font = white;
-        style2.font=white;
+        style2.font=white; 
         soundButtonStyle.font = white;		
 	}
 	private void loadAnimations(){
@@ -149,7 +153,8 @@ public class Resources {
         duckAnimationLeft = new Animation(1/8f,duckAtlasLeft.getRegions());
 	}
 	private void loadLabelStyles(){
-		scoreStyle = new LabelStyle(scoreFont,Color.WHITE);
+		scoreStyle = new LabelStyle(white,Color.WHITE);
+		
 	}
 	
 	private void loadLabels(){

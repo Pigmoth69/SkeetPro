@@ -53,11 +53,11 @@ public class GUIMainMenu extends GUIScreen {
         multiplayer = new TextButton("       MULTIPLAYER", Resources.style); //** Button text and style **//
         soundButton = new TextButton(" ",Resources.soundButtonStyle);
         
-        play.setSize(400, 100);
-        exit.setSize(400, 100);
-        highscores.setSize(400, 100);
-        options.setSize(400, 100);
-        multiplayer.setSize(400, 100);
+        play.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));
+        exit.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));
+        highscores.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));
+        options.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));
+        multiplayer.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));;
            
         
         stage.addActor(play);

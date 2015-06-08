@@ -60,6 +60,7 @@ public class ServerNetworkListener extends Listener{
 			
 		}
 		if(object instanceof Packets.PacketSendDuck){
+			
 			if(connection.equals(clients.get(0))){
 				clients.get(1).sendTCP(new Packets.PacketSendDuck());
 			}

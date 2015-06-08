@@ -34,12 +34,12 @@ public class GUIOptions extends GUIScreen{
         batch = new SpriteBatch();
         stage = new Stage();        //** window is stage **//
         exit = new TextButton("EXIT", Resources.style); //** Button text and style **//
-        Nfail = new TextButton("Num of Fail Plates", Resources.style);
-        Vel = new TextButton("Num of Plates per sec", Resources.style);
+        Nfail = new TextButton("          Plates fail num", Resources.style);
+        Vel = new TextButton("        Plates per sec", Resources.style);
         
-        exit.setSize(200, 50);
-        Nfail.setSize(500, 100);
-        Vel.setSize(500,  100);
+        exit.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));
+        Nfail.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));
+        Vel.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));
            
         stage.addActor(exit);
         stage.addActor(Nfail);
@@ -62,9 +62,9 @@ public class GUIOptions extends GUIScreen{
 	}
 	
 	private void refreshButtonsPosition() {
-		exit.setPosition(Gdx.graphics.getWidth()/2 - exit.getWidth()/2,Gdx.graphics.getHeight()-exit.getHeight()- 3*(Gdx.graphics.getHeight()+100)/4);
-		Nfail.setPosition(Nfail.getWidth()/2 + 200, - 3*Nfail.getHeight() + Gdx.graphics.getHeight());
-		Vel.setPosition(Vel.getWidth()/2 + 200, -5*Vel.getHeight() + Gdx.graphics.getHeight());
+		Nfail.setPosition(Gdx.graphics.getWidth()/2 - Nfail.getWidth()/2, Gdx.graphics.getHeight()-Nfail.getHeight()- (Gdx.graphics.getHeight()-5*Nfail.getHeight())/2); //** Button location **//
+		Vel.setPosition(Gdx.graphics.getWidth()/2 - Vel.getWidth()/2,Gdx.graphics.getHeight()-Vel.getHeight()- (Gdx.graphics.getHeight()-3*Vel.getHeight())/2); //** Button location **//
+        exit.setPosition(Gdx.graphics.getWidth()/2 - exit.getWidth()/2,Gdx.graphics.getHeight()-exit.getHeight()- (Gdx.graphics.getHeight()-1*exit.getHeight())/2); //** Button location **//
 	}
 	
 	@Override
@@ -78,10 +78,10 @@ public class GUIOptions extends GUIScreen{
         
         batch.begin();
         batch.draw(Resources.background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-    
-        Resources.scoreFont.draw(batch, "" + Nfailt, Gdx.graphics.getWidth()/2-200, - 3*Nfail.getHeight() + Gdx.graphics.getHeight() + 100);
-        Resources.scoreFont.draw(batch, "" + Velt, Gdx.graphics.getWidth()/2-200,  -5*Vel.getHeight() + Gdx.graphics.getHeight() + 100);
-    	
+        
+        Resources.white.draw(batch, "" + Nfailt,Gdx.graphics.getWidth()/2 - Nfail.getWidth()/2- Resources.white.getSpaceWidth()*3/2, Gdx.graphics.getHeight()- (Gdx.graphics.getHeight()-5*Nfail.getHeight())/2);
+        Resources.white.draw(batch, "" + Velt, Gdx.graphics.getWidth()/2 - Vel.getWidth()/2- Resources.white.getSpaceWidth()*3/2,Gdx.graphics.getHeight()- (Gdx.graphics.getHeight()-3*Vel.getHeight())/2);
+       
         is1Pressed = Gdx.input.isKeyPressed(Keys.NUM_1);
         is2Pressed = Gdx.input.isKeyPressed(Keys.NUM_2);
         is3Pressed = Gdx.input.isKeyPressed(Keys.NUM_3);

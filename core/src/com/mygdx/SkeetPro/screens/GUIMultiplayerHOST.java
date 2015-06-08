@@ -44,8 +44,8 @@ public class GUIMultiplayerHOST extends GUIScreen {
         returnMenu= new TextButton("Return", Resources.style); //** Button text and style **//
 
         
-        IPadress.setSize(640, 200);
-        returnMenu.setSize(400, 100);           
+        IPadress.setSize((int)(Gdx.graphics.getWidth()*0.5), (int)(Gdx.graphics.getHeight()*0.28));
+        returnMenu.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));         
         
         stage.addActor(IPadress);
         stage.addActor(returnMenu);

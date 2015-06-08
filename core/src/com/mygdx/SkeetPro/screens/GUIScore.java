@@ -38,7 +38,7 @@ public class GUIScore extends GUIScreen{
         stage = new Stage();        //** window is stage **//
         exit = new TextButton("EXIT", Resources.style); //** Button text and style **//
         
-        exit.setSize(200, 50);
+        exit.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));
            
         stage.addActor(exit);
         
