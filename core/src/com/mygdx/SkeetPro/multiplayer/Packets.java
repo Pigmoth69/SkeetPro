@@ -9,5 +9,6 @@ public class Packets {
 	public static class PacketPlayerLost{};
 	public static class PacketKeepAlive{};
 	public static class PacketStartGame{};
+	public static class PacketPlayerWon{};
 	
 }

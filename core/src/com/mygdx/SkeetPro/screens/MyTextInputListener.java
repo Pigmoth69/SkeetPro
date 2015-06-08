@@ -30,5 +30,10 @@ public class MyTextInputListener implements TextInputListener {
 			inputDone = bol;
 			return inputDone;
 		}
+
+		public void setNome(String nome) {
+			this.nome = nome;
+			
+		}
 	
 	}

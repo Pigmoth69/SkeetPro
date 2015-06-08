@@ -16,18 +16,21 @@ import com.mygdx.SkeetPro.elements.Player;
 import com.mygdx.SkeetPro.gamestate.GameState;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
+import com.mygdx.SkeetPro.multiplayer.Packets;
+import com.mygdx.SkeetPro.multiplayer.client.ClientNetworkListener;
+import com.mygdx.SkeetPro.multiplayer.server.ServerNetworkListener;
 
 public class GUIMultiplayerGame extends GUIScreen {
 	private  SpriteBatch batch;
 	private OrthographicCamera camera;
-	private GameState gamestate;
+	public static GameState gamestate;
 	private Player p1;
 	private float time;
 	private float time2;
 	private boolean firstNameInput = true;
 	MyTextInputListener listener;
-	private int limitFailedPlates = 3;
 	private float timepassed = 0;
+	public static int limitFailedPlates = 3;
 	
 	public GUIMultiplayerGame(SkeetPro parent) {
 		super(parent);
@@ -36,7 +39,7 @@ public class GUIMultiplayerGame extends GUIScreen {
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Resources.plateSprite.setSize((float)(Gdx.graphics.getWidth()*0.13),(float)(Gdx.graphics.getHeight()*0.23));
-        p1 = new Player("unkown", 0);
+        p1 = new Player("Daniel", 0);
         gamestate = new GameState(p1);
         time = 0;
 		time2 = 0;
@@ -94,33 +97,9 @@ public class GUIMultiplayerGame extends GUIScreen {
 
 		
 		if(gamestate.getFailPlates()>= limitFailedPlates || gamestate.getDuckShoot()){
-			String nome;
-			
-			if(firstNameInput){
-				nome=null;
-		      
-				Gdx.input.getTextInput(listener, "Score", "Write your name here", null);
-				
-				
-				firstNameInput = false;
-			}
-			
-			if(listener.getInputDone()){ 
-		        nome = listener.getNome();
-		        	        
-		        System.out.println(listener.getNome());
-		        
-		        if (nome == null)
-		        	nome = "bot";
-				Player p2 = new Player(nome, 0);
-				p1.setName(nome);
-				SkeetPro.SaveScore(p1);
-				gamestate.resetGameState(p2);
-				p1 = p2;
-				firstNameInput = true;
-				listener.setInputDone(false);
-				game.switchTo(SkeetPro.State.MAIN_MENU);
-			}
+			//ele perde aqui
+			ClientNetworkListener.client.sendTCP(new Packets.PacketPlayerLost());
+	
 		}
 		
 		if(!(gamestate.getFailPlates()>= limitFailedPlates)){
@@ -135,15 +114,22 @@ public class GUIMultiplayerGame extends GUIScreen {
 			switch(brokenplates){
 			case 2:
 				Resources.doubleKill.play();
+				ClientNetworkListener.client.sendTCP(new Packets.PacketSendDuck());
 				break;
 			case 3:
 				Resources.tripleKill.play();
+				ClientNetworkListener.client.sendTCP(new Packets.PacketSendDuck());
 				break;
 			default:
 			}
 			gamestate.resetScope();
 		}
 		
+		/*if(ServerNetworkListener.clients.size()<2){
+			gamestate.resetGameState(p1);
+			ClientNetworkListener.client.close();
+			game.switchTo(SkeetPro.State.MAIN_MENU);
+		}*/
 	}
 
 	private void drawShells() {
@@ -218,7 +204,7 @@ public class GUIMultiplayerGame extends GUIScreen {
 		}
 	}
 
-	private void drawDucks(){ 
+	private void drawDucks(){
 			for(int i = 0; i < gamestate.getDucks().size();i++){
 				if(gamestate.getDucks().get(i).getDirection()==1){
 					batch.draw(Resources.duckAnimationRight.getKeyFrame(timepassed,true),(float)gamestate.getDucks().get(i).getX(),(float)gamestate.getDucks().get(i).getY());
@@ -235,3 +221,4 @@ public class GUIMultiplayerGame extends GUIScreen {
 		timepassed = 0;
 	}
 }
+

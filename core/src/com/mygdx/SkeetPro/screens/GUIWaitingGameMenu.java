@@ -96,7 +96,7 @@ public class GUIWaitingGameMenu extends GUIScreen {
 
 	private void startGame() {
 		if(timeToStart > 5){
-			game.switchTo(SkeetPro.State.MAIN_MENU); // onde começa o multiplayer
+			game.switchTo(SkeetPro.State.MULTIPLAYER_GAME); // onde começa o multiplayer
 			timeToStart=0;
 		}
 	}
@@ -110,7 +110,7 @@ public class GUIWaitingGameMenu extends GUIScreen {
 
 	@Override
 	public void resize(int width, int height) {
-	    stage.getViewport().update(width, height, true);
+		/*stage.getViewport().update(width, height, true);*/
 	    TextureRegion[] texturas = Resources.duckAnimationRight.getKeyFrames();
 	    TextureRegion tex = texturas[0];
 	    Texture tex2 = tex.getTexture();

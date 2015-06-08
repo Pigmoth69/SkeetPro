@@ -36,14 +36,12 @@ public class GUIMultiplayerMenu extends GUIScreen {
 	private TextButton host,join,returnMenu;
 	private float timepassed=0;
 	int duck_x_right,duck_y_right, duck_x_left,duck_y_left,duckSpeedRight,duckSpeedLeft;
-	public static GameServer gameserver;
 	MyTextInputListener listener;
 	private boolean isConnected=false;
 	public static boolean isHost=false;
 	
 	public GUIMultiplayerMenu(SkeetPro parent) {
 		super(parent);
-		gameserver = new GameServer();
 		listener = new MyTextInputListener();
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); //** w/h ratio = 1.66 **//
@@ -218,7 +216,6 @@ public class GUIMultiplayerMenu extends GUIScreen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("hostgame2"); 
             	isHost=true;
-            	gameserver.startServer();
             	if(Packets.IP == null){
         			Packets.IP = "Please connect to a wifi internet!";
         		}else{

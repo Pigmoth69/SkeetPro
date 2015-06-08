@@ -19,6 +19,7 @@ public class ServerNetworkListener extends Listener{
 		clients.add(connection);
 		
 		System.out.println("COnnectiones: "+ clients.size());
+		
 		if(clients.size()>2)
 			connection.close();
 		
@@ -37,13 +38,34 @@ public class ServerNetworkListener extends Listener{
 	//remover os override se der asneira
 	@Override
 	public void received(Connection connection, Object object) {
-		
+
 		if(object instanceof Packets.PacketClientLogin){
 			connection.sendTCP(new Packets.PacketClientLogin());
 		}
-		
+
 		if(object instanceof Packets.PacketStartGame){
-			connection.sendTCP(new Packets.PacketStartGame());
+			//if(clients.size()!=2)
+				connection.sendTCP(new Packets.PacketStartGame());
+		}
+		if(object instanceof Packets.PacketPlayerLost){
+			if(connection.equals(clients.get(0))){
+				connection.sendTCP(new Packets.PacketPlayerWon());			
+				clients.get(1).sendTCP(new Packets.PacketPlayerLost());
+			}
+			else{
+				connection.sendTCP(new Packets.PacketPlayerWon());
+				clients.get(0).sendTCP(new Packets.PacketPlayerLost());
+			}
+			/*resetConnections();	*/
+			
+		}
+		if(object instanceof Packets.PacketSendDuck){
+			if(connection.equals(clients.get(0))){
+				clients.get(1).sendTCP(new Packets.PacketSendDuck());
+			}
+			else{
+				clients.get(0).sendTCP(new Packets.PacketSendDuck());
+			}
 		}
 		
 	}

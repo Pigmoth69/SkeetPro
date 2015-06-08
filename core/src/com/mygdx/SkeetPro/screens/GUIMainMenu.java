@@ -234,6 +234,7 @@ public class GUIMainMenu extends GUIScreen {
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("options2");
+            	game.switchTo(SkeetPro.State.OPTIONS);
             }
         });
 		

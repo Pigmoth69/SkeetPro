@@ -6,7 +6,10 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
 import com.mygdx.SkeetPro.main.SkeetPro;
 import com.mygdx.SkeetPro.multiplayer.Packets;
+import com.mygdx.SkeetPro.multiplayer.server.ServerNetworkListener;
+import com.mygdx.SkeetPro.screens.GUIMultiplayerGame;
 import com.mygdx.SkeetPro.screens.GUIMultiplayerMenu;
+import com.mygdx.SkeetPro.screens.GUIResult;
 import com.mygdx.SkeetPro.screens.GUIScreen;
 
 public class ClientNetworkListener extends Listener{
@@ -44,7 +47,20 @@ public class ClientNetworkListener extends Listener{
 		if(object instanceof Packets.PacketStartGame){
 			GUIScreen.game.switchTo(SkeetPro.State.MULTIPLAYER_WAITING);
 		}
-		
+		if(object instanceof Packets.PacketPlayerLost){
+			GUIResult.resultText = "YOU WON :)";
+			GUIScreen.game.switchTo(SkeetPro.State.RESULT);
+		}
+		if(object instanceof Packets.PacketPlayerWon){
+			GUIResult.resultText = "YOU LOST :(";
+			GUIScreen.game.switchTo(SkeetPro.State.RESULT);
+			
+		}
+		if(object instanceof Packets.PacketSendDuck){
+			for(int i = 0; i < 50;i++)
+				GUIMultiplayerGame.gamestate.createDucks(0);
+		}
+
 		/*if(object instanceof Packets.Packet1LoginAwnser){
 			boolean awnser = ((Packets.Packet1LoginAwnser)object).accepted;
 			*/

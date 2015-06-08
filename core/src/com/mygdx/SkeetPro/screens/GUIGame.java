@@ -26,21 +26,25 @@ public class GUIGame extends GUIScreen {
 	private float time2;
 	private boolean firstNameInput = true;
 	MyTextInputListener listener;
-	private int limitFailedPlates = 3;
 	private float timepassed = 0;
+	public static int limitFailedPlates = 1;
+	public static int Velocity = 1;
 	
-	public GUIGame(SkeetPro parent) {
+	public GUIGame(SkeetPro parent, int limitFail, int Vel) {
 		super(parent);
 		Resources.score.setPosition(0, Gdx.graphics.getHeight());
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Resources.plateSprite.setSize((float)(Gdx.graphics.getWidth()*0.13),(float)(Gdx.graphics.getHeight()*0.23));
-        p1 = new Player("Daniel", 0);
+        p1 = new Player("unkown", 0);
         gamestate = new GameState(p1);
         time = 0;
 		time2 = 0;
 		listener = new MyTextInputListener();
+		
+        limitFailedPlates = limitFail;
+        Velocity = Vel;
 		
 		
 	}
@@ -81,7 +85,7 @@ public class GUIGame extends GUIScreen {
 		if(!(gamestate.getFailPlates()>= limitFailedPlates)){
 			gamestate.movePlates(delta);	
 			
-			if(time > 1.2){
+			if(time > ((float)1/Velocity)){
 				gamestate.createPlate(delta);
 				time = 0;
 			}

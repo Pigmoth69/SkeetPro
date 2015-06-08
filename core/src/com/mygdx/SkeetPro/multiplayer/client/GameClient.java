@@ -29,6 +29,7 @@ public class GameClient implements Runnable {
 		kryo.register(Packets.PacketPlayerLost.class);
 		kryo.register(Packets.PacketStartGame.class);
 		kryo.register(Packets.PacketKeepAlive.class);
+		kryo.register(Packets.PacketPlayerWon.class);
 		
 
 	}

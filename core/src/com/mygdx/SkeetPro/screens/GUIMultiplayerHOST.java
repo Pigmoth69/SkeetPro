@@ -190,7 +190,6 @@ public class GUIMultiplayerHOST extends GUIScreen {
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("ReturnMenu2"); 
-            	GUIMultiplayerMenu.gameserver.closeServer();
             	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU);
             	
             }

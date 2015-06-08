@@ -19,18 +19,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
 import com.mygdx.SkeetPro.multiplayer.Packets;
+import com.mygdx.SkeetPro.multiplayer.client.ClientNetworkListener;
 import com.mygdx.SkeetPro.multiplayer.server.GameServer;
 
-public class GUIResut extends GUIScreen {
+public class GUIResult extends GUIScreen {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Stage stage;
 	private TextButton result,returnMenu; 
 	private float timepassed=0; 
 	int duck_x_right,duck_y_right, duck_x_left,duck_y_left,duckSpeedRight,duckSpeedLeft;
+	public static String resultText;
 	
 	
-	public GUIResut(SkeetPro parent) {
+	public GUIResult(SkeetPro parent) {
 		super(parent);
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); //** w/h ratio = 1.66 **//
@@ -69,7 +71,7 @@ public class GUIResut extends GUIScreen {
 	public void show() {
 		//   stage.clear();
 
-        
+		result.setText(resultText);
 		
 		
         Gdx.input.setInputProcessor(stage); //** stage is responsive **//
@@ -143,7 +145,7 @@ public class GUIResut extends GUIScreen {
 	@Override
 	public void resize(int width, int height) {
 		refreshButtonsPosition();
-	    stage.getViewport().update(width, height, true);
+	    /*stage.getViewport().update(width, height, true);*/
 	    TextureRegion[] texturas = Resources.duckAnimationRight.getKeyFrames();
 	    TextureRegion tex = texturas[0];
 	    Texture tex2 = tex.getTexture();
@@ -191,7 +193,9 @@ public class GUIResut extends GUIScreen {
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("ReturnMenu2"); 
+            	GUIMultiplayerGame.gamestate.reset();
             	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU);
+            	ClientNetworkListener.client.close();
             }
         });
 		

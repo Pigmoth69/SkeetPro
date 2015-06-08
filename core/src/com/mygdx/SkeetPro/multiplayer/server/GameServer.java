@@ -66,10 +66,13 @@ public class GameServer{
 		kryo.register(Packets.PacketPlayerLost.class);
 		kryo.register(Packets.PacketStartGame.class);
 		kryo.register(Packets.PacketKeepAlive.class);
+		kryo.register(Packets.PacketPlayerWon.class);
+		
 	}
 	
 	public void closeServer(){
 		server.stop();
+		server.close();
 	}
 	
 	public Server getServer(){

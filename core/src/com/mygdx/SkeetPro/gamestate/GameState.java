@@ -146,8 +146,14 @@ public class GameState {
 	}
 
 	public void reset() {
+		plates = new HashMap<Integer,Plate>();
+		ducks = new ArrayList<Duck>();
+		scope = new Scope();
 		failPlates=0;
-		
+		bullets = 4;
+        reload_time = 0;
+        is_reloading = false;
+        shootDuck = false;
 	}
 	
 	public void setScope(double x, double y){
