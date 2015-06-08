@@ -33,7 +33,7 @@ public class GUIMainMenu extends GUIScreen {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Stage stage;
-	private TextButton play,highscores,options,multiplayer,exit,soundButton;
+	private TextButton play,options,multiplayer,exit,soundButton;
 	private boolean soundActive = true;
 	private float timepassed=0;
 	int duck_x_right,duck_y_right, duck_x_left,duck_y_left,duckSpeedRight,duckSpeedLeft;
@@ -48,21 +48,18 @@ public class GUIMainMenu extends GUIScreen {
         stage = new Stage();        //** window is stage **//
         play = new TextButton("PLAY", Resources.style); //** Button text and style **//
         exit = new TextButton("EXIT", Resources.style); //** Button text and style **//
-        highscores= new TextButton("     HIGHSCORES", Resources.style); //** Button text and style **//
         options = new TextButton("OPTIONS", Resources.style); //** Button text and style **//
         multiplayer = new TextButton("       MULTIPLAYER", Resources.style); //** Button text and style **//
         soundButton = new TextButton(" ",Resources.soundButtonStyle);
         
         play.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));
         exit.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));
-        highscores.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));
         options.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));
         multiplayer.setSize((int)(Gdx.graphics.getWidth()*0.31), (int)(Gdx.graphics.getHeight()*0.14));;
            
         
         stage.addActor(play);
         stage.addActor(multiplayer);
-        stage.addActor(highscores);
         stage.addActor(options);
         stage.addActor(exit);
         stage.addActor(soundButton);
@@ -112,9 +109,8 @@ public class GUIMainMenu extends GUIScreen {
 	private void refreshButtonsPosition() {
 		play.setPosition(Gdx.graphics.getWidth()/2 - play.getWidth()/2, Gdx.graphics.getHeight()-play.getHeight()- (Gdx.graphics.getHeight()-5*play.getHeight())/2); //** Button location **//
         multiplayer.setPosition(Gdx.graphics.getWidth()/2 - multiplayer.getWidth()/2,Gdx.graphics.getHeight()-multiplayer.getHeight()- (Gdx.graphics.getHeight()-3*play.getHeight())/2); //** Button location **//
-        highscores.setPosition(Gdx.graphics.getWidth()/2 - highscores.getWidth()/2,Gdx.graphics.getHeight()-highscores.getHeight()- (Gdx.graphics.getHeight()-1*play.getHeight())/2); //** Button location **//
-        options.setPosition(Gdx.graphics.getWidth()/2 - options.getWidth()/2,Gdx.graphics.getHeight()-options.getHeight()- (Gdx.graphics.getHeight()+1*play.getHeight())/2);      
-        exit.setPosition(Gdx.graphics.getWidth()/2 - exit.getWidth()/2,Gdx.graphics.getHeight()-exit.getHeight()- (Gdx.graphics.getHeight()+3*play.getHeight())/2);
+        options.setPosition(Gdx.graphics.getWidth()/2 - options.getWidth()/2,Gdx.graphics.getHeight()-options.getHeight()- (Gdx.graphics.getHeight()-1*play.getHeight())/2); //** Button location **//
+        exit.setPosition(Gdx.graphics.getWidth()/2 - options.getWidth()/2,Gdx.graphics.getHeight()-options.getHeight()- (Gdx.graphics.getHeight()+1*play.getHeight())/2);      
         soundButton.setPosition(Gdx.graphics.getWidth()-soundButton.getWidth()-10, 10);
 	}
 
@@ -210,19 +206,6 @@ public class GUIMainMenu extends GUIScreen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("play2"); 
             	game.switchTo(SkeetPro.State.PLAY_GAME);
-            }
-        });
-		
-		highscores.addListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("highscores1");
-            	return true;
-            }
-            
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            	System.out.println("highscores2"); 
-            	game.switchTo(SkeetPro.State.SCORE);
-            	//FileSaving.LoadGameState("Jogador.cenas");
             }
         });
 		
