@@ -215,12 +215,12 @@ public class GUIMainMenu extends GUIScreen {
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("multiplayer2");
-            	
+            	SkeetPro.gameserver.refreshIP();
             	if(Packets.IP!=null){
             	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU);
             	}
             	
-            	SkeetPro.gameserver.refreshIP();
+            	
             }
         });
 		

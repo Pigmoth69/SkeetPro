@@ -14,6 +14,7 @@ import com.mygdx.SkeetPro.multiplayer.Packets;
 
 
 public class GameServer{
+	public static boolean isInitialized=false;
 	private Server server;
 	private int tcp_port = 25565;
 	private int udp_port = 25567;
@@ -24,6 +25,7 @@ public class GameServer{
 	}
 
 	public void startServer(){
+		isInitialized=true;
 		server = new Server();
 		registerPackets();
 		 
@@ -95,8 +97,11 @@ public class GameServer{
 	}
 	
 	public void closeServer(){
+		if(isInitialized){
 		server.stop();
 		server.close();
+		isInitialized=false;
+		}
 	}
 	
 	public Server getServer(){

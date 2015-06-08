@@ -186,9 +186,7 @@ public class GUIResult extends GUIScreen {
             	GUIMultiplayerGame.gamestate.reset();
             	ClientNetworkListener.client.close();
             	SkeetPro.gameserver.closeServer();
-            	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU);
-            	
-            	/*ServerNetworkListener.resetConnections();*/
+            	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU); 
             }
         });
 		

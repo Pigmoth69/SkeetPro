@@ -182,7 +182,6 @@ public class GUIMultiplayerHOST extends GUIScreen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("ReturnMenu2"); 
             	Packets.IP = null;
-            	/*ClientNetworkListener.client.sendTCP(new Packets.PakcetResetConnection());*/
             	SkeetPro.gameserver.closeServer();
             	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU);
             	
