@@ -6,9 +6,7 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
 import com.mygdx.SkeetPro.main.SkeetPro;
 import com.mygdx.SkeetPro.multiplayer.Packets;
-import com.mygdx.SkeetPro.multiplayer.server.ServerNetworkListener;
 import com.mygdx.SkeetPro.screens.GUIMultiplayerGame;
-import com.mygdx.SkeetPro.screens.GUIMultiplayerMenu;
 import com.mygdx.SkeetPro.screens.GUIResult;
 import com.mygdx.SkeetPro.screens.GUIScreen;
 
@@ -17,7 +15,7 @@ public class ClientNetworkListener extends Listener{
 	
 	
 	public void init(Client client) {
-		this.client=client;
+		ClientNetworkListener.client=client;
 		
 	}
 	

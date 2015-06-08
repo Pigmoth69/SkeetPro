@@ -18,7 +18,6 @@ public class GUIOptions extends GUIScreen{
 	private SpriteBatch batch;
 	private Stage stage;
 	private TextButton exit, Nfail, Vel;
-	private float timepassed=0;
 	public static int Nfailt = 1;
 	public static int Velt = 1;
 	private boolean failChange = false;
@@ -73,7 +72,7 @@ public class GUIOptions extends GUIScreen{
 		Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
-        timepassed+=Gdx.graphics.getDeltaTime();
+        Gdx.graphics.getDeltaTime();
         batch.setProjectionMatrix(camera.combined);
         
         batch.begin();

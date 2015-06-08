@@ -3,8 +3,6 @@ package com.mygdx.SkeetPro.screens;
 import java.util.HashMap;
 import java.util.Map.Entry;
  
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
@@ -18,7 +16,6 @@ import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
 import com.mygdx.SkeetPro.multiplayer.Packets;
 import com.mygdx.SkeetPro.multiplayer.client.ClientNetworkListener;
-import com.mygdx.SkeetPro.multiplayer.server.ServerNetworkListener;
 
 public class GUIMultiplayerGame extends GUIScreen {
 	private  SpriteBatch batch;
@@ -27,7 +24,6 @@ public class GUIMultiplayerGame extends GUIScreen {
 	private Player p1;
 	private float time;
 	private float time2;
-	private boolean firstNameInput = true;
 	MyTextInputListener listener;
 	private float timepassed = 0;
 	public static int limitFailedPlates = 3;
@@ -59,7 +55,7 @@ public class GUIMultiplayerGame extends GUIScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		batch.setProjectionMatrix(camera.combined);
-		Sprite sp = new Sprite(Resources.plateTexture);
+		new Sprite(Resources.plateTexture);
 		timepassed+=Gdx.graphics.getDeltaTime();
 		batch.begin();
 		batch.draw(Resources.gameBackground, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());

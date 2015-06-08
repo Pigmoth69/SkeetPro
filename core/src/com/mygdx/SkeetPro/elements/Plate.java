@@ -1,7 +1,5 @@
 package com.mygdx.SkeetPro.elements;
 
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 
 public class Plate extends Element{
@@ -11,7 +9,6 @@ public class Plate extends Element{
 	double speed;
 	int direction; // 0 ou 1 : se 0 vai para a -> se 1 <-
 	double K;
-	private int Wwidth = Gdx.graphics.getWidth();
 	private int Wheight = Gdx.graphics.getHeight();
 	
 

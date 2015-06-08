@@ -9,7 +9,7 @@ public abstract class GUIScreen implements Screen,InputProcessor{
 	public static SkeetPro game;
 	
 	GUIScreen(SkeetPro game){
-		this.game = game;
+		GUIScreen.game = game;
 	}
 	
 	@Override

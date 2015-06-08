@@ -1,6 +1,5 @@
 package com.mygdx.SkeetPro.main;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
@@ -128,7 +127,7 @@ public class Resources {
         ipSkin = new Skin();
 	}
 	private void loadBitmapFont(){
-		white = new BitmapFont();
+		white = new BitmapFont(); 
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("scoreFont.ttf"));
 		white = generator.generateFont((int)(Gdx.graphics.getWidth()*0.02));
 		generator.dispose();

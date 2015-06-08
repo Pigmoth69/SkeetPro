@@ -11,9 +11,6 @@ import java.util.Stack;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.mygdx.SkeetPro.elements.Player;
-import com.mygdx.SkeetPro.files.FileSaving;
-import com.mygdx.SkeetPro.files.SaveClass;
 import com.mygdx.SkeetPro.multiplayer.client.GameClient;
 import com.mygdx.SkeetPro.multiplayer.server.GameServer;
 import com.mygdx.SkeetPro.screens.GUIGame;
@@ -32,7 +29,6 @@ public class SkeetPro extends Game {
 	private GUIScreen current;
 	private ArrayList<GUIScreen> menus;
 	private Stack<State> stack;
-	public static SaveClass SaveState;
 	public static GameClient client;
 	public static GameServer gameserver;
 	
@@ -73,11 +69,6 @@ public class SkeetPro extends Game {
 		menus.add(new GUIOptions(this));
 		menus.add(new GUIResult(this));
 		menus.add(new GUIMultiplayerGame(this));
-		SaveState = FileSaving.LoadGameState("Jogador.cenas");
-		if (SaveState == null){
-			System.out.println("iniciar saveState"); 
-			SaveState = new SaveClass();
-		}
 		switchTo(State.SPLASH);
 	}
 	
@@ -152,9 +143,5 @@ public class SkeetPro extends Game {
 		super.render();
 	}
 
-	public static void SaveScore(Player p1){
-		SaveState = FileSaving.SaveScores("Jogador.cenas", p1);
-	}
-	
 
 }

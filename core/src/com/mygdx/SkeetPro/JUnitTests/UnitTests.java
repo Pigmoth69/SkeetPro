@@ -2,8 +2,6 @@ package com.mygdx.SkeetPro.JUnitTests;
 
 import static org.junit.Assert.*;
 
-import java.util.Random;
-
 import org.junit.Test;
 
 import com.mygdx.SkeetPro.elements.Player;

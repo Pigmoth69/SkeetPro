@@ -2,24 +2,17 @@ package com.mygdx.SkeetPro.screens;
 
 import java.util.Random;
 
-import sun.font.TextLabel;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
 import com.mygdx.SkeetPro.multiplayer.Packets;
-import com.mygdx.SkeetPro.multiplayer.server.GameServer;
 import com.mygdx.SkeetPro.multiplayer.server.ServerNetworkListener;
 
 public class GUIMultiplayerHOST extends GUIScreen {
@@ -157,9 +150,6 @@ public class GUIMultiplayerHOST extends GUIScreen {
 	public void resize(int width, int height) {
 		refreshButtonsPosition();
 	    stage.getViewport().update(width, height, true);
-	    TextureRegion[] texturas = Resources.duckAnimationRight.getKeyFrames();
-	    TextureRegion tex = texturas[0];
-	    Texture tex2 = tex.getTexture();
 	    
 	}
 

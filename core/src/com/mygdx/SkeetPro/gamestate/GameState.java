@@ -12,7 +12,7 @@ import com.mygdx.SkeetPro.elements.Scope;
 public class GameState {
 	private HashMap<Integer,Plate> plates;
 	private ArrayList<Duck> ducks;
-	private Player player1,player2;
+	private Player player1;
 	private Scope scope;
 	private int failPlates; 
 	private int bestscore;
@@ -24,7 +24,6 @@ public class GameState {
 	     
 	public GameState(Player player1){
 		this.player1= player1;
-		this.player2 = null;
 		plates = new HashMap<Integer,Plate>();
 		ducks = new ArrayList<Duck>();
 		scope = new Scope();
@@ -70,7 +69,6 @@ public class GameState {
 
 	public GameState(Player player1,Player player2){
 		this.player1 = player1;
-		this.player2 = player2;
 		plates = new HashMap<Integer,Plate>();
 		
 	}
@@ -249,7 +247,6 @@ public class GameState {
  
 	public void resetGameState(Player p1){
 		this.player1= p1;
-		this.player2 = null;
 		plates = new HashMap<Integer,Plate>();
 		ducks = new ArrayList<Duck>();
 		scope = new Scope();

@@ -1,8 +1,6 @@
 package com.mygdx.SkeetPro.elements;
 
-import java.io.Serializable;
-
-public class Player implements Comparable, Serializable{
+public class Player implements Comparable<Object> {
 //public class Player {
 	private String name;
 	private int score;

@@ -2,29 +2,15 @@ package com.mygdx.SkeetPro.screens;
 
 import java.util.Random;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.mygdx.SkeetPro.elements.Player;
-import com.mygdx.SkeetPro.files.FileSaving;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
 
@@ -163,9 +149,6 @@ public class GUIMainMenu extends GUIScreen {
 	public void resize(int width, int height) {
 		refreshButtonsPosition();
 	    stage.getViewport().update(width, height, true);
-	    TextureRegion[] texturas = Resources.duckAnimationRight.getKeyFrames();
-	    TextureRegion tex = texturas[0];
-	    Texture tex2 = tex.getTexture();
 	    
 	}
 

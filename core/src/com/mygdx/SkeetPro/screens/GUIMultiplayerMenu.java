@@ -4,29 +4,19 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.mygdx.SkeetPro.elements.Player;
-import com.mygdx.SkeetPro.files.FileSaving;
 import com.mygdx.SkeetPro.main.Resources;
 import com.mygdx.SkeetPro.main.SkeetPro;
 import com.mygdx.SkeetPro.multiplayer.Packets;
 import com.mygdx.SkeetPro.multiplayer.client.ClientNetworkListener;
-import com.mygdx.SkeetPro.multiplayer.server.GameServer;
+import com.mygdx.SkeetPro.multiplayer.client.GameClient;
 
 public class GUIMultiplayerMenu extends GUIScreen {
 
@@ -37,7 +27,6 @@ public class GUIMultiplayerMenu extends GUIScreen {
 	private float timepassed=0;
 	int duck_x_right,duck_y_right, duck_x_left,duck_y_left,duckSpeedRight,duckSpeedLeft;
 	MyTextInputListener listener;
-	private boolean isConnected=false;
 	public static boolean isHost=false;
 	
 	public GUIMultiplayerMenu(SkeetPro parent) {
@@ -151,16 +140,15 @@ public class GUIMultiplayerMenu extends GUIScreen {
 	private void connectToServer() {
 		
 		if(listener.getInputDone() && listener.getNome()!=null){
-			game.client.connectClient(listener.getNome());
-			if(game.client.isConnected){
-				game.client.isConnected=false;
+			SkeetPro.client.connectClient(listener.getNome());
+			if(GameClient.isConnected){
+				GameClient.isConnected=false;
 				ClientNetworkListener.client.sendTCP(new Packets.PacketStartGame());
 				
 				//game.switchTo(SkeetPro.State.MULTIPLAYER_WAITING);
 			}
 			System.out.println("entrou no connectToServer!");
 			listener.setInputDone(false);
-			isConnected=false;
     	}		
 	}
 
@@ -175,7 +163,7 @@ public class GUIMultiplayerMenu extends GUIScreen {
 	    stage.getViewport().update(width, height, true);
 	    TextureRegion[] texturas = Resources.duckAnimationRight.getKeyFrames();
 	    TextureRegion tex = texturas[0];
-	    Texture tex2 = tex.getTexture();
+	    tex.getTexture();
 	    
 	}
 
@@ -221,7 +209,7 @@ public class GUIMultiplayerMenu extends GUIScreen {
         		}else{
         			System.out.println("Connectou!");
         			
-        			game.client.connectClient("localhost");
+        			SkeetPro.client.connectClient("localhost");
         		}
             	game.switchTo(SkeetPro.State.MULTIPLAYER_MENU_HOST);
             }
@@ -235,8 +223,7 @@ public class GUIMultiplayerMenu extends GUIScreen {
             
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             	System.out.println("joingame2");
-            		isConnected=true;
-    				Gdx.input.getTextInput(listener, "Connect", "Enter the IP adress here: ", null);
+            		Gdx.input.getTextInput(listener, "Connect", "Enter the IP adress here: ", null);
     				
     				if(listener.getNome()==null){
     					System.out.println("é nulo!");

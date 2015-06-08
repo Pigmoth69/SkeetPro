@@ -3,8 +3,6 @@ package com.mygdx.SkeetPro.screens;
 import java.util.HashMap;
 import java.util.Map.Entry;
  
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
@@ -24,7 +22,6 @@ public class GUIGame extends GUIScreen {
 	private Player p1;
 	private float time;
 	private float time2;
-	private boolean firstNameInput = true;
 	MyTextInputListener listener;
 	private float timepassed = 0;
 	public static int limitFailedPlates = 1;
@@ -60,7 +57,7 @@ public class GUIGame extends GUIScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		batch.setProjectionMatrix(camera.combined);
-		Sprite sp = new Sprite(Resources.plateTexture);
+		new Sprite(Resources.plateTexture);
 		timepassed+=Gdx.graphics.getDeltaTime();
 		batch.begin();
 		batch.draw(Resources.gameBackground, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -98,33 +95,8 @@ public class GUIGame extends GUIScreen {
 
 		
 		if(gamestate.getFailPlates()>= limitFailedPlates || gamestate.getDuckShoot()){
-			String nome;
-			
-			if(firstNameInput){
-				nome=null;
-		      
-				Gdx.input.getTextInput(listener, "Score", "Write your name here", null);
-				
-				
-				firstNameInput = false;
-			}
-			
-			if(listener.getInputDone()){ 
-		        nome = listener.getNome();
-		        	        
-		        System.out.println(listener.getNome());
-		        
-		        if (nome == null)
-		        	nome = "bot";
-				Player p2 = new Player(nome, 0);
-				p1.setName(nome);
-				SkeetPro.SaveScore(p1);
-				gamestate.resetGameState(p2);
-				p1 = p2;
-				firstNameInput = true;
-				listener.setInputDone(false);
-				game.switchTo(SkeetPro.State.MAIN_MENU);
-			}
+			gamestate.resetGameState(p1);
+			game.switchTo(SkeetPro.State.MAIN_MENU);
 		}
 		
 		if(!(gamestate.getFailPlates()>= limitFailedPlates)){

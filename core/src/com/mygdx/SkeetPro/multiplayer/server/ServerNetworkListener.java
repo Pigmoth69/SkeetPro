@@ -2,7 +2,6 @@ package com.mygdx.SkeetPro.multiplayer.server;
 
 import java.util.ArrayList;
 
-import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
